@@ -1,0 +1,28 @@
+.column-slot,
+.column-slot:hover > .class {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
+
+.column-slot {
+	position: relative;
+	border-color: inherit;
+	border-style: inherit;
+	border-width: 0 0 1px 0;
+}
+
+.column-slot > * {
+	overflow: hidden;
+	padding: 3px;
+}
+
+.column-slot:hover > .class {
+	position: absolute;
+	overflow: visible;
+	z-index: 1;
+	box-shadow: 0 0 2px 3px #8888;
+	min-width: 100%;
+	min-height: 100%;
+}

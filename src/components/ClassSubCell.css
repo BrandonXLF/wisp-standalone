@@ -1,0 +1,19 @@
+.expanded-content:not(:last-child) {
+	padding-bottom: 8px;
+}
+
+.slot-top span[tabIndex] {
+	cursor: pointer;
+	user-select: none;
+}
+
+.course-code {
+	font-weight: bold;
+}
+
+.svg-btn {
+	background: none;
+	padding: 0;
+	box-shadow: none;
+	font-size: inherit;
+}

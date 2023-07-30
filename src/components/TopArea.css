@@ -1,0 +1,23 @@
+.top-area {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5em;
+	margin: 0 0 1em 0;
+}
+
+.top-area img {
+	height: 2em;
+}
+
+.top-area h2 {
+	display: inline-block;
+	font-size: 1.5rem;
+	margin: 0;
+}
+
+@media (min-width: 600px) {
+	.top-area {
+		justify-content: left;
+	}
+}

@@ -1,0 +1,47 @@
+:root {
+	--theme: #f5bd00;
+	--theme-light: #ffe799;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body,
+#root {
+	height: 100%;
+}
+
+textarea,
+input,
+button {
+	padding: 4px 8px;
+	border-radius: 4px;
+}
+
+textarea,
+input {
+	font-family: inherit;
+	border: 2px solid var(--theme);
+}
+
+button {
+	cursor: pointer;
+	border: none;
+	background: var(--theme);
+	padding: 6px 10px;
+	box-shadow: #8883 1px 1px 6px 1px;
+}
+
+select {
+	padding: 4px 0;
+	border: 0;
+	border-bottom: 2px solid var(--theme);
+}

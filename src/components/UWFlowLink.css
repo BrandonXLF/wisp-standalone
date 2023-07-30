@@ -1,0 +1,7 @@
+a[target='uw-flow'] {
+	white-space: nowrap;
+}
+
+a[target='uw-flow'] svg {
+	padding-right: 2px;
+}
