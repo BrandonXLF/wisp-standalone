@@ -5,7 +5,7 @@ import CourseSearch from './CourseSearch';
 import Session from '../data/Semester';
 import Class from '../data/Class';
 import Importer from '../data/Importer';
-import ImportButton from './ImportButton';
+import QuestImporter from './QuestImporter';
 import StoredClass from '../data/StoredClass';
 import TopArea from './TopArea';
 import Course from '../data/Course';
@@ -16,6 +16,8 @@ export default function App() {
 	const [loading, setLoading] = useState(true);
 	const [classes, setClasses] = useState<Class[]>([]);
 	const [activeCourse, setActiveCourse] = useState<Course | null>(null);
+	const [miniMode, setMiniMode] = useState(false);
+	const [showImporter, setShowImporter] = useState(false);
 
 	const addClass = useCallback((classInfo: Class) => {
 		setClasses(existingClasses => {
@@ -80,7 +82,15 @@ export default function App() {
 			<main ref={mainRef}>
 				<header ref={headerRef}>
 					<TopArea session={session} onSessionChanged={setSession} />
-					<ImportButton importer={importerRef.current} />
+					<div className="main-buttons">
+						<button onClick={() => setShowImporter(!showImporter)}>
+							{showImporter ? 'Close import' : 'Import'}
+						</button>
+						<button onClick={() => setMiniMode(!miniMode)}>
+							{miniMode ? 'Proportion' : 'Minify'}
+						</button>
+					</div>
+					<QuestImporter show={showImporter} importer={importerRef.current} />
 					<CourseSearch
 						sessionCode={session.code}
 						container={mainRef.current}
@@ -96,6 +106,7 @@ export default function App() {
 					classes={classes}
 					removeClass={removeClass}
 					courseClicked={setActiveCourse}
+					mini={miniMode}
 				/>
 			</main>
 			<Footer />

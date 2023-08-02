@@ -23,8 +23,6 @@
 .schedule {
 	overflow: auto;
 	background: center / cover url(/logo.svg);
-	min-height: 8em;
-	min-width: 8em;
 }
 
 .columns {
@@ -34,6 +32,11 @@
 	min-width: 50em;
 	font-size: 11px;
 	background-color: rgba(255, 255, 255, 0.95);
+}
+
+.mini .columns {
+	grid-template-columns: repeat(5, 1fr);
+	column-gap: 8px;
 }
 
 .header,
@@ -53,12 +56,20 @@
 	font-size: 125%;
 }
 
+.mini .header-empty-col {
+	border-width: 0;
+}
+
 .column {
 	display: flex;
 	flex-direction: column;
-	border-width: 0 1px 0 0;
 	min-width: 3em;
 	width: 100%;
+	border-width: 0;
+}
+
+.schedule:not(.mini) .column {
+	border-right-width: 1px;
 }
 
 .time-column {
@@ -69,8 +80,20 @@
 	border-left-width: 1px;
 }
 
+.mini .time-column,
+.mini .blank,
+.mini .header:first-child {
+	display: none;
+}
+
 .class {
 	background: #eee;
+}
+
+.mini .class {
+	border-left-width: 1px;
+	border-right-width: 1px;
+	padding: 3px 0;
 }
 
 .class-LEC {

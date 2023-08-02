@@ -13,12 +13,16 @@
 	border-width: 0 0 1px 0;
 }
 
+.mini .column-slot {
+	height: max-content !important;
+}
+
 .column-slot > * {
 	overflow: hidden;
 	padding: 3px;
 }
 
-.column-slot:hover > .class {
+.schedule:not(.mini) .column-slot:hover > .class {
 	position: absolute;
 	overflow: visible;
 	z-index: 1;

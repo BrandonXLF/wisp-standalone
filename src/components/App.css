@@ -15,8 +15,21 @@ main {
 	gap: 1em;
 }
 
+.main-buttons {
+	margin-bottom: 1em;
+	text-align: center;
+}
+
+.main-buttons > button:not(:first-child) {
+	margin-left: 1em;
+}
+
 @media (min-width: 600px) {
 	main {
 		flex-direction: row;
+	}
+
+	.main-buttons {
+		text-align: unset;
 	}
 }

@@ -18,12 +18,14 @@ export default function ScheduleGrid({
 	loading,
 	classes,
 	removeClass,
-	courseClicked
+	courseClicked,
+	mini
 }: {
 	loading: boolean;
 	classes: Class[];
 	removeClass: (classInfo: Class) => void;
 	courseClicked: (course: Course) => void;
+	mini?: boolean;
 }) {
 	const columns: (ScheduleSlot & { key: string })[][] = COLUMN_DAYS.map(
 		() => []
@@ -206,11 +208,16 @@ export default function ScheduleGrid({
 		<div className="schedule-container">
 			{!hasClasses && <GetStarted />}
 			{loading && <div className="loading">Loading...</div>}
-			<div className="schedule">
+			<div className={`schedule${mini ? ' mini' : ''}`}>
 				<div className="columns">
 					<div className="header"></div>
-					{COLUMN_DAYS.map(day => (
-						<div key={day} className="header">
+					{COLUMN_DAYS.map((day, i) => (
+						<div
+							key={day}
+							className={`header${
+								columns[i].length > 1 ? '' : ' header-empty-col'
+							}`}
+						>
 							{COLUMN_LABELS[day]}
 						</div>
 					))}

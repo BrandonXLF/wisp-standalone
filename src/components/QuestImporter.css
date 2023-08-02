@@ -26,10 +26,6 @@
 }
 
 @media (max-width: 600px) {
-	.import-buttons {
-		text-align: center;
-	}
-
 	.import-text,
 	.import-instructions {
 		width: 80%;
