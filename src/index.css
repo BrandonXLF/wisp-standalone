@@ -44,4 +44,6 @@ select {
 	padding: 4px 0;
 	border: 0;
 	border-bottom: 2px solid var(--theme);
+	background: #fff;
+	border-radius: 0;
 }
