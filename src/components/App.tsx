@@ -16,6 +16,7 @@ export default function App() {
 	const [loading, setLoading] = useState(true);
 	const [classes, setClasses] = useState<Class[]>([]);
 	const [activeCourse, setActiveCourse] = useState<Course | null>(null);
+
 	const [miniMode, setMiniMode] = useState(false);
 	const [showImporter, setShowImporter] = useState(false);
 
@@ -56,6 +57,7 @@ export default function App() {
 
 		setLoading(true);
 		setClasses([]);
+		setActiveCourse(null);
 
 		importerRef.current
 			.importFromArray(storedClasses)

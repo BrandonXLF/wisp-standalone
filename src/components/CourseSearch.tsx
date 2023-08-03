@@ -49,10 +49,10 @@ export default function CourseSearch({
 
 	const hasResults = Boolean(activeCourse ?? shownCourses.length > 0);
 
-	useEffect(() => {
-		setActiveCourse(null);
-		new OfferingsParser(sessionCode).getCourses().then(setCourses);
-	}, [sessionCode, setActiveCourse]);
+	useEffect(
+		() => void new OfferingsParser(sessionCode).getCourses().then(setCourses),
+		[sessionCode, setActiveCourse]
+	);
 
 	useEffect(() => {
 		if (!container || !verticalRelativesContainer) return;
