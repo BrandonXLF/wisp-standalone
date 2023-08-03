@@ -58,20 +58,18 @@ export default function ScheduleGrid({
 							<ColumnCell key={slot.start} slot={slot} />
 						))}
 					</div>
-					{columns.map((slots, i) => {
-						return (
-							<div key={i} className="column">
-								{slots.map(slot => (
-									<ColumnCell
-										key={slot.key}
-										slot={slot}
-										removeClass={removeClass}
-										courseClicked={courseClicked}
-									/>
-								))}
-							</div>
-						);
-					})}
+					{columns.map((slots, i) => (
+						<div key={i} className="column">
+							{slots.map(slot => (
+								<ColumnCell
+									key={slot.key}
+									slot={slot}
+									removeClass={removeClass}
+									courseClicked={courseClicked}
+								/>
+							))}
+						</div>
+					))}
 				</div>
 			</div>
 		</div>
