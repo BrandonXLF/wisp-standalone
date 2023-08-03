@@ -5,6 +5,8 @@ import ScheduleSlot, { SlotType } from '../data/ScheduleSlot';
 import GetStarted from './GetStarted';
 import Course from '../data/Course';
 
+type ScheduleSlotWithKey = ScheduleSlot & { key: string };
+
 const COLUMN_DAYS = ['M', 'T', 'W', 'Th', 'F'] as const;
 const COLUMN_LABELS: Record<(typeof COLUMN_DAYS)[number], string> = {
 	M: 'Mon',
@@ -21,6 +23,57 @@ function gridOnScroll(e: React.UIEvent) {
 	el.classList.toggle('scrolled-y', !!el.scrollTop);
 }
 
+function processClassOverlap(
+	slots: ScheduleSlotWithKey[],
+	i: number,
+	slot: ScheduleSlotWithKey,
+	prevSlot: ScheduleSlotWithKey
+) {
+	if (!('classSlots' in prevSlot) || !('classSlots' in slot))
+		throw new Error('Slots must have classSlots');
+
+	const prevSlotEnd = prevSlot.end;
+	const overlapStart = slot.start;
+	const overlapEnd = Math.min(prevSlot.end, slot.end);
+
+	prevSlot.end = overlapStart;
+	slot.start = overlapEnd;
+
+	const newSlots = [...prevSlot.classSlots, ...slot.classSlots];
+
+	slots.splice(i, 0, {
+		type: SlotType.Class,
+		start: overlapStart,
+		end: overlapEnd,
+		classSlots: newSlots,
+		key: `${prevSlot.key}+${slot.key}`
+	});
+
+	i++;
+
+	if (slot.end === overlapEnd) {
+		slots.splice(i, 1);
+		i--;
+	}
+
+	if (prevSlotEnd > overlapEnd) {
+		let insertIndex = i + 1;
+
+		while (slots[insertIndex]?.start < overlapEnd) insertIndex++;
+
+		slots.splice(insertIndex, 0, {
+			...prevSlot,
+			start: overlapEnd,
+			end: prevSlotEnd,
+			key: `${prevSlot.key}/split`
+		});
+
+		if (insertIndex == i + 1) i++;
+	}
+
+	return i;
+}
+
 export default function ScheduleGrid({
 	loading,
 	classes,
@@ -34,9 +87,7 @@ export default function ScheduleGrid({
 	courseClicked: (course: Course) => void;
 	mini?: boolean;
 }) {
-	const columns: (ScheduleSlot & { key: string })[][] = COLUMN_DAYS.map(
-		() => []
-	);
+	const columns: ScheduleSlotWithKey[][] = COLUMN_DAYS.map(() => []);
 
 	let hasClasses = false;
 
@@ -104,48 +155,7 @@ export default function ScheduleGrid({
 			if (!prevSlot) continue;
 
 			if (prevSlot.end > slot.start) {
-				if (!('classSlots' in prevSlot) || !('classSlots' in slot))
-					throw new Error('Slots must have classSlots');
-
-				const prevSlotEnd = prevSlot.end;
-				const overlapStart = slot.start;
-				const overlapEnd = Math.min(prevSlot.end, slot.end);
-
-				prevSlot.end = overlapStart;
-				slot.start = overlapEnd;
-
-				const newSlots = [...prevSlot.classSlots, ...slot.classSlots];
-
-				slots.splice(i, 0, {
-					type: SlotType.Class,
-					start: overlapStart,
-					end: overlapEnd,
-					classSlots: newSlots,
-					key: `${prevSlot.key}+${slot.key}`
-				});
-
-				i++;
-
-				if (slot.end === overlapEnd) {
-					slots.splice(i, 1);
-					i--;
-				}
-
-				if (prevSlotEnd > overlapEnd) {
-					let insertIndex = i + 1;
-
-					while (slots[insertIndex]?.start < overlapEnd) insertIndex++;
-
-					slots.splice(insertIndex, 0, {
-						...prevSlot,
-						start: overlapEnd,
-						end: prevSlotEnd,
-						key: `${prevSlot.key}/split`
-					});
-
-					if (insertIndex == i + 1) i++;
-				}
-
+				i = processClassOverlap(slots, i, slot, prevSlot);
 				continue;
 			}
 
