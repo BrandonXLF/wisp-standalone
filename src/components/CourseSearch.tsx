@@ -5,6 +5,7 @@ import Class from '../data/Class';
 import ClassList from './ClassList';
 import SearchResult from './SearchResult';
 import OfferingsParser from '../data/OfferingsParser';
+import NamedCourse from '../data/NamedCourse';
 
 export default function CourseSearch({
 	sessionCode,
@@ -24,7 +25,7 @@ export default function CourseSearch({
 	setActiveCourse: (course: Course | null) => void;
 }) {
 	const [query, setQuery] = useState<string>('');
-	const [courses, setCourses] = useState<Course[]>([]);
+	const [courses, setCourses] = useState<NamedCourse[]>([]);
 	const [resultsMaxHeight, setResultsMaxHeight] = useState<string>();
 
 	const calculateResultsMaxHeight = useCallback(() => {

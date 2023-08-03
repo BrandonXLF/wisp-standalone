@@ -1,8 +1,8 @@
-import Course from './Course';
+import NamedCourse from './NamedCourse';
 import UWParser from './UWParser';
 
 export default class OfferingsParser extends UWParser {
-	private courses: Course[] = [];
+	private courses: NamedCourse[] = [];
 	private seenCourses: Record<string, boolean> = {};
 
 	constructor(private sessionCode: string) {
@@ -10,7 +10,7 @@ export default class OfferingsParser extends UWParser {
 	}
 
 	private courseFromRow(row: HTMLTableRowElement) {
-		const course = new Course(
+		const course = new NamedCourse(
 			this.sessionCode,
 			this.getCellContents(row, 0),
 			this.getCellContents(row, 1),

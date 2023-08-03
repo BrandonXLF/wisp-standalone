@@ -39,9 +39,7 @@ export default class Importer {
 			storedClasses.map(async ([courseCode, courseNumber, classNumber]) => {
 				const course = new Course(this.session.code, courseCode, courseNumber);
 
-				await course.fetchInfo();
-
-				const classInfo = course.classes!.find(
+				const classInfo = (await course.classes).find(
 					classInfo => classInfo.number === classNumber
 				);
 
