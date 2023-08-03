@@ -22,7 +22,7 @@ export default function TopArea({
 
 	return (
 		<hgroup className="top-area">
-			<img src="/logo.png" />
+			<img src="logo.png" />
 			<h2>WISP</h2>
 			<select
 				value={session.code}
