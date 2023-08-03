@@ -8,7 +8,10 @@ import Course from '../data/Course';
 type ScheduleSlotWithKey = ScheduleSlot & { key: string };
 
 const COLUMN_DAYS = ['M', 'T', 'W', 'Th', 'F'] as const;
-const COLUMN_LABELS: Record<(typeof COLUMN_DAYS)[number], string> = {
+
+export type Day = (typeof COLUMN_DAYS)[number];
+
+const COLUMN_LABELS: Record<Day, string> = {
 	M: 'Mon',
 	T: 'Tue',
 	W: 'Wed',

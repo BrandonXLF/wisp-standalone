@@ -1,8 +1,7 @@
+import { Day } from '../components/ScheduleGrid';
 import Class from './Class';
 import ClassDate from './ClassDate';
 import ClassTime from './ClassTime';
-
-type Day = 'M' | 'T' | 'W' | 'Th' | 'F';
 
 export default class ClassSlot {
 	private static DATE_TIME_PATTERN =
