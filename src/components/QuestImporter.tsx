@@ -3,10 +3,10 @@ import Importer from '../data/Importer';
 import './QuestImporter.css';
 
 export default function ImportButton({
-	show,
+	isShown,
 	importer
 }: {
-	show: boolean;
+	isShown: boolean;
 	importer: Importer;
 }) {
 	const [loading, setLoading] = useState(false);
@@ -30,11 +30,11 @@ export default function ImportButton({
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 
 	useEffect(() => {
-		if (!show) setSuccesses(-1);
-	}, [show]);
+		if (!isShown) setSuccesses(-1);
+	}, [isShown]);
 
 	return (
-		show && (
+		isShown && (
 			<div className="import-area-container">
 				<div className="import-area">
 					<div className="import-instructions">

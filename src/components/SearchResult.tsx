@@ -2,20 +2,20 @@ import { ReactNode } from 'react';
 import './SearchResult.css';
 
 export default function SearchResult({
-	onChosen,
+	onSelected,
 	className,
 	children
 }: {
 	className?: string;
-	onChosen: () => void;
+	onSelected: () => void;
 	children: ReactNode;
 }) {
 	return (
 		<div
 			className={`search-result ${className ?? ''}`}
 			tabIndex={0}
-			onClick={onChosen}
-			onKeyDown={e => e.key === 'Enter' && onChosen()}
+			onClick={onSelected}
+			onKeyDown={e => e.key === 'Enter' && onSelected()}
 		>
 			{children}
 		</div>

@@ -7,11 +7,11 @@ import UWFlowLink from './UWFlowLink';
 export default function ClassList({
 	course,
 	scheduledClasses,
-	addScheduledClass
+	onClassSelected
 }: {
 	course: Course;
 	scheduledClasses: Class[];
-	addScheduledClass: (classInfo: Class) => void;
+	onClassSelected: (classInfo: Class) => void;
 }) {
 	const [courseDetails, setCourseDetails] = useState<{
 		name: string;
@@ -56,7 +56,7 @@ export default function ClassList({
 						key={classInfo.number}
 						classInfo={classInfo}
 						scheduledClasses={scheduledClasses}
-						onSelected={() => addScheduledClass(classInfo)}
+						onSelected={() => onClassSelected(classInfo)}
 					/>
 				))}
 		</>

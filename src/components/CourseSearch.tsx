@@ -12,17 +12,17 @@ export default function CourseSearch({
 	container,
 	verticalRelativesContainer,
 	scheduledClasses,
-	addScheduledClass,
+	onClassSelected,
 	activeCourse,
-	setActiveCourse
+	onCourseChanged
 }: {
 	sessionCode: string;
 	container: HTMLElement | null;
 	verticalRelativesContainer: HTMLElement | null;
 	scheduledClasses: Class[];
-	addScheduledClass: (classInfo: Class) => void;
+	onClassSelected: (classInfo: Class) => void;
 	activeCourse: Course | null;
-	setActiveCourse: (course: Course | null) => void;
+	onCourseChanged: (course: Course | null) => void;
 }) {
 	const [query, setQuery] = useState<string>('');
 	const [courses, setCourses] = useState<NamedCourse[]>([]);
@@ -51,7 +51,7 @@ export default function CourseSearch({
 
 	useEffect(
 		() => void new OfferingsParser(sessionCode).getCourses().then(setCourses),
-		[sessionCode, setActiveCourse]
+		[sessionCode, onCourseChanged]
 	);
 
 	useEffect(() => {
@@ -83,13 +83,13 @@ export default function CourseSearch({
 				return;
 
 			setQuery('');
-			setActiveCourse(null);
+			onCourseChanged(null);
 		};
 
 		window.addEventListener('click', onWindowClick);
 
 		return () => window.removeEventListener('click', onWindowClick);
-	}, [hasResults, setActiveCourse]);
+	}, [hasResults, onCourseChanged]);
 
 	return (
 		<div className="class-search">
@@ -99,7 +99,7 @@ export default function CourseSearch({
 				placeholder="Search for courses"
 				onInput={() => {
 					setQuery(inputRef.current?.value ?? '');
-					setActiveCourse(null);
+					onCourseChanged(null);
 				}}
 			/>
 			{hasResults && (
@@ -113,13 +113,13 @@ export default function CourseSearch({
 							<ClassList
 								course={activeCourse}
 								scheduledClasses={scheduledClasses}
-								addScheduledClass={addScheduledClass}
+								onClassSelected={onClassSelected}
 							/>
 						) : (
 							shownCourses.map(course => (
 								<SearchResult
 									key={course.code}
-									onChosen={() => setActiveCourse(course)}
+									onSelected={() => onCourseChanged(course)}
 								>
 									{course.code} {course.name}
 								</SearchResult>

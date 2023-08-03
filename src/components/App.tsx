@@ -98,23 +98,26 @@ export default function App() {
 							{miniMode ? 'Proportion' : 'Minify'}
 						</button>
 					</div>
-					<QuestImporter show={showImporter} importer={importerRef.current} />
+					<QuestImporter
+						isShown={showImporter}
+						importer={importerRef.current}
+					/>
 					<CourseSearch
 						sessionCode={session.code}
 						container={mainRef.current}
 						verticalRelativesContainer={headerRef.current}
 						scheduledClasses={classes}
-						addScheduledClass={addClass}
+						onClassSelected={addClass}
 						activeCourse={activeCourse}
-						setActiveCourse={setActiveCourse}
+						onCourseChanged={setActiveCourse}
 					/>
 				</header>
 				<ScheduleGrid
 					loading={loading}
 					classes={classes}
-					removeClass={removeClass}
-					courseClicked={setActiveCourse}
-					mini={miniMode}
+					onClassRemoved={removeClass}
+					onCourseClicked={setActiveCourse}
+					isMini={miniMode}
 				/>
 			</main>
 			<Footer />

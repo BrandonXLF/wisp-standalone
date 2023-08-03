@@ -9,12 +9,12 @@ import ExpandIcon from '../icons/ExpandIncon';
 export default function ClassSubCell({
 	classSlot,
 	onRemoved,
-	courseClicked,
+	onCourseClicked,
 	expandable
 }: {
 	classSlot: ClassSlot;
 	onRemoved: () => void;
-	courseClicked: () => void;
+	onCourseClicked: () => void;
 	expandable?: boolean;
 }) {
 	const [expanded, setExpanded] = useState(false);
@@ -28,7 +28,7 @@ export default function ClassSubCell({
 					onClick={e => {
 						e.preventDefault();
 						e.stopPropagation();
-						courseClicked();
+						onCourseClicked();
 					}}
 				>
 					{classSlot.classInfo.course.code}

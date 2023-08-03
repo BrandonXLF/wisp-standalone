@@ -7,12 +7,12 @@ import { useMemo } from 'react';
 
 export default function ColumnCell({
 	slot,
-	removeClass,
-	courseClicked
+	onClassRemoved,
+	onCourseClicked
 }: {
 	slot: ScheduleSlot;
-	removeClass?: (classInfo: Class) => void;
-	courseClicked?: (course: Course) => void;
+	onClassRemoved?: (classInfo: Class) => void;
+	onCourseClicked?: (course: Course) => void;
 }) {
 	const className = useMemo(() => {
 		if (slot.type !== SlotType.Class) return slot.type;
@@ -43,8 +43,10 @@ export default function ColumnCell({
 						<ClassSubCell
 							key={classSlot.uniqueStr}
 							classSlot={classSlot}
-							onRemoved={() => removeClass?.(classSlot.classInfo)}
-							courseClicked={() => courseClicked?.(classSlot.classInfo.course)}
+							onRemoved={() => onClassRemoved?.(classSlot.classInfo)}
+							onCourseClicked={() =>
+								onCourseClicked?.(classSlot.classInfo.course)
+							}
 							expandable={slot.classSlots.length > 1}
 						/>
 					))}

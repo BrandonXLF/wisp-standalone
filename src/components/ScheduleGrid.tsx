@@ -16,15 +16,15 @@ function gridOnScroll(e: React.UIEvent) {
 export default function ScheduleGrid({
 	loading,
 	classes,
-	removeClass,
-	courseClicked,
-	mini
+	onClassRemoved,
+	onCourseClicked,
+	isMini
 }: {
 	loading: boolean;
 	classes: Class[];
-	removeClass: (classInfo: Class) => void;
-	courseClicked: (course: Course) => void;
-	mini?: boolean;
+	onClassRemoved: (classInfo: Class) => void;
+	onCourseClicked: (course: Course) => void;
+	isMini?: boolean;
 }) {
 	const [columns, timeColumn, hasClassSlots] = useMemo(() => {
 		const schedule = new Schedule(classes);
@@ -40,7 +40,10 @@ export default function ScheduleGrid({
 		<div className="schedule-container">
 			{!hasClassSlots && <GetStarted />}
 			{loading && <div className="loading">Loading...</div>}
-			<div className={`schedule${mini ? ' mini' : ''}`} onScroll={gridOnScroll}>
+			<div
+				className={`schedule${isMini ? ' mini' : ''}`}
+				onScroll={gridOnScroll}
+			>
 				<div className="columns">
 					<div className="header"></div>
 					{Schedule.days.map((day, i) => (
@@ -64,8 +67,8 @@ export default function ScheduleGrid({
 								<ColumnCell
 									key={slot.key}
 									slot={slot}
-									removeClass={removeClass}
-									courseClicked={courseClicked}
+									onClassRemoved={onClassRemoved}
+									onCourseClicked={onCourseClicked}
 								/>
 							))}
 						</div>

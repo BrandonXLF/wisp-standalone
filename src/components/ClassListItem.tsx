@@ -39,7 +39,7 @@ export default function ClassListItem({
 				overlaps.length ? 'result-overlaps' : ''
 			} ${isFull ? 'results-full' : ''}`}
 			key={classInfo.number}
-			onChosen={onSelected}
+			onSelected={onSelected}
 		>
 			<div>
 				<div>
