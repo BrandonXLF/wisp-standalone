@@ -4,6 +4,7 @@ import './CourseSearch.css';
 import Class from '../data/Class';
 import ClassList from './ClassList';
 import SearchResult from './SearchResult';
+import OfferingsParser from '../data/OfferingsParser';
 
 export default function CourseSearch({
 	sessionCode,
@@ -49,7 +50,7 @@ export default function CourseSearch({
 
 	useEffect(() => {
 		setActiveCourse(null);
-		Course.getAll(sessionCode).then(setCourses);
+		new OfferingsParser(sessionCode).getCourses().then(setCourses);
 	}, [sessionCode, setActiveCourse]);
 
 	useEffect(() => {
