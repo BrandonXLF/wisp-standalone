@@ -1,4 +1,4 @@
-import { Day } from '../components/ScheduleGrid';
+import { Day } from './Schedule';
 import Class from './Class';
 import ClassDate from './ClassDate';
 import ClassTime from './ClassTime';
