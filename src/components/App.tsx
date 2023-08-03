@@ -12,7 +12,7 @@ import Course from '../data/Course';
 import Footer from './Footer';
 
 export default function App() {
-	const [session, setSession] = useState<Session>(Session.getActive());
+	const [session, setSession] = useState(Session.getActive());
 	const [loading, setLoading] = useState(true);
 	const [classes, setClasses] = useState<Class[]>([]);
 	const [activeCourse, setActiveCourse] = useState<Course | null>(null);
@@ -43,7 +43,7 @@ export default function App() {
 
 	const mainRef = useRef<HTMLElement>(null);
 	const headerRef = useRef<HTMLElement>(null);
-	const importerRef = useRef<Importer>(new Importer(session, addClass));
+	const importerRef = useRef(new Importer(session, addClass));
 	const sessionRef = useRef(session);
 
 	useEffect(() => {
