@@ -38,7 +38,9 @@ export default class Importer {
 		await Promise.allSettled(
 			storedClasses.map(async ([courseCode, courseNumber, classNumber]) => {
 				const course = new Course(this.session.code, courseCode, courseNumber);
+
 				await course.fetchInfo();
+
 				const classInfo = course.classes!.find(
 					classInfo => classInfo.number === classNumber
 				);
@@ -46,6 +48,7 @@ export default class Importer {
 				if (!classInfo) return;
 
 				this.addClass(classInfo);
+
 				finished++;
 			})
 		);
