@@ -25,8 +25,8 @@ export default function ClassListItem({
 				classInfo.slots.some(
 					proposedSlot =>
 						proposedSlot.days.some(day => slot.days.includes(day)) &&
-						proposedSlot.endDate >= slot.endDate &&
-						proposedSlot.startDate <= slot.startDate &&
+						proposedSlot.endDate >= slot.startDate &&
+						proposedSlot.startDate <= slot.endDate &&
 						proposedSlot.end >= slot.start &&
 						proposedSlot.start <= slot.end
 				)
