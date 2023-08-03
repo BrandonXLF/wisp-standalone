@@ -30,9 +30,9 @@ export default function ClassList({
 					path={`/course/${course.code.toLowerCase().replace(/ /g, '')}`}
 				/>
 			</div>
-			{!course.classes && 'Loading'}
+			{!course.classes && 'Loading...'}
 			{course.classes?.length === 0 && 'No classes available.'}
-			{course.classes?.length &&
+			{!!course.classes?.length &&
 				course.classes.map(classInfo => (
 					<ClassListItem
 						key={classInfo.number}
