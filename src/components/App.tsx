@@ -98,10 +98,7 @@ export default function App() {
 							{miniMode ? 'Proportion' : 'Minify'}
 						</button>
 					</div>
-					<QuestImporter
-						isShown={showImporter}
-						importer={importerRef.current}
-					/>
+					{showImporter && <QuestImporter importer={importerRef.current} />}
 					<CourseSearch
 						sessionCode={session.code}
 						container={mainRef.current}
