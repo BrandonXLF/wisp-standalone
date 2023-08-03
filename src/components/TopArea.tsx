@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import Session from '../data/Semester';
 import './TopArea.css';
 
@@ -8,12 +9,16 @@ export default function TopArea({
 	session: Session;
 	onSessionChanged: (session: Session) => void;
 }) {
-	const dropdownOptions = new Map<string, Session>();
+	const dropdownOptions = useMemo(() => {
+		const dropdownOptions = new Map<string, Session>();
 
-	for (let i = 0, currentSession = Session.getActive().next; i < 5; i++) {
-		dropdownOptions.set(currentSession.code, currentSession);
-		currentSession = currentSession.prev;
-	}
+		for (let i = 0, currentSession = Session.getActive().next; i < 5; i++) {
+			dropdownOptions.set(currentSession.code, currentSession);
+			currentSession = currentSession.prev;
+		}
+
+		return dropdownOptions;
+	}, []);
 
 	return (
 		<hgroup className="top-area">
