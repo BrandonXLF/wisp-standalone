@@ -75,10 +75,14 @@ export default function App() {
 			];
 		});
 
-		localStorage.setItem(
-			`uw-scheduler-${sessionRef.current.code}`,
-			JSON.stringify(storedClasses)
-		);
+		const key = `uw-scheduler-${sessionRef.current.code}`;
+
+		if (!storedClasses.length) {
+			localStorage.removeItem(key);
+			return;
+		}
+
+		localStorage.setItem(key, JSON.stringify(storedClasses));
 	}, [classes, loading]);
 
 	return (
