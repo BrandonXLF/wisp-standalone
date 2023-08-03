@@ -20,7 +20,7 @@ export default function ColumnCell({
 	return (
 		<div style={{ height }} className={`column-slot ${slot.className ?? ''}`}>
 			{slot.classSlots ? (
-				<div className={slot.className}>
+				<div className="slot-content">
 					{slot.classSlots.map(classSlot => (
 						<ClassSubCell
 							key={classSlot.uniqueStr}

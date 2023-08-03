@@ -1,5 +1,5 @@
 .column-slot,
-.column-slot:hover > .class {
+.class:hover > .slot-content {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -22,7 +22,7 @@
 	padding: 3px;
 }
 
-.schedule:not(.mini) .column-slot:hover > .class {
+.schedule:not(.mini) .class:hover > .slot-content {
 	position: absolute;
 	overflow: visible;
 	z-index: 1;
