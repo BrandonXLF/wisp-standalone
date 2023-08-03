@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import './App.css';
 import ScheduleGrid from './ScheduleGrid';
 import CourseSearch from './CourseSearch';
-import Session from '../data/Semester';
+import Session from '../data/Session';
 import Class from '../data/Class';
 import Importer from '../data/Importer';
 import QuestImporter from './QuestImporter';

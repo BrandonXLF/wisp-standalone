@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import Session from '../data/Semester';
+import Session from '../data/Session';
 import './TopArea.css';
 
 export default function TopArea({

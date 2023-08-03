@@ -1,6 +1,6 @@
 import Class from './Class';
 import Course from './Course';
-import Session from './Semester';
+import Session from './Session';
 import StoredClass from './StoredClass';
 
 export default class Importer {
