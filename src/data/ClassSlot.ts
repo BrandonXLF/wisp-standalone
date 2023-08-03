@@ -41,11 +41,12 @@ export default class ClassSlot {
 	}
 
 	get dateStr() {
-		return !this.startDate.isDefined()
-			? ''
-			: this.startDate.valueOf() === this.endDate.valueOf()
-				? this.startDate.toString()
-				: `${this.startDate}\u2013${this.endDate}`;
+		if (!this.startDate.isDefined()) return '';
+
+		if (this.startDate.valueOf() === this.endDate.valueOf())
+			return this.startDate.toString();
+
+		return `${this.startDate}\u2013${this.endDate}`;
 	}
 
 	get uniqueStr() {
