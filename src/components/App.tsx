@@ -24,7 +24,8 @@ export default function App() {
 			if (
 				existingClasses.some(
 					existingClass => existingClass.number == classInfo.number
-				)
+				) ||
+				classInfo.course.sessionCode !== sessionRef.current.code
 			)
 				return existingClasses;
 
@@ -43,6 +44,7 @@ export default function App() {
 	const mainRef = useRef<HTMLElement>(null);
 	const headerRef = useRef<HTMLElement>(null);
 	const importerRef = useRef<Importer>(new Importer(session, addClass));
+	const sessionRef = useRef(session);
 
 	useEffect(() => {
 		const storedClasses = JSON.parse(
@@ -50,6 +52,7 @@ export default function App() {
 		) as StoredClass[];
 
 		importerRef.current.setSession(session);
+		sessionRef.current = session;
 
 		setLoading(true);
 		setClasses([]);
@@ -71,10 +74,9 @@ export default function App() {
 		});
 
 		localStorage.setItem(
-			`uw-scheduler-${session}`,
+			`uw-scheduler-${sessionRef.current.code}`,
 			JSON.stringify(storedClasses)
 		);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [classes, loading]);
 
 	return (
