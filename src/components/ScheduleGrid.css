@@ -59,6 +59,10 @@
 	z-index: 3;
 }
 
+.mini .header:first-child {
+	display: none;
+}
+
 .mini .header-empty-col {
 	border-width: 0;
 }
@@ -86,52 +90,8 @@
 	z-index: 2;
 }
 
-.mini .time-column,
-.mini .blank,
-.mini .header:first-child {
+.mini .time-column {
 	display: none;
-}
-
-.class {
-	background: #eee;
-}
-
-.mini .class {
-	border-left-width: 1px;
-	border-right-width: 1px;
-	padding: 3px 0;
-}
-
-.class-LEC {
-	background: #e5f0fa;
-}
-
-.class-TUT {
-	background: #f4e2fd;
-}
-
-.class-TST {
-	background: #e4fbe4;
-}
-
-.class-LAB {
-	background: #fcf3e3;
-}
-
-.class-SEM {
-	background: #fbfbe4;
-}
-
-.class-MULTI {
-	background: #e4e4e4;
-}
-
-.class-GET_STARTED > * {
-	font-size: 125%;
-}
-
-.gap {
-	color: #333;
 }
 
 @media (min-width: 600px) {

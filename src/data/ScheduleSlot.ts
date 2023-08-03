@@ -1,10 +1,30 @@
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 import ClassSlot from './ClassSlot';
 
-export default interface ScheduleSlot {
+export enum SlotType {
+	Class = 'class',
+	Time = 'time',
+	Gap = 'gap',
+	Blank = 'blank'
+}
+
+type ScheduleSlot = {
 	start: number;
 	end: number;
-	className: string;
-	content?: ReactElement;
-	classSlots?: ClassSlot[];
-}
+} & (
+	| {
+			type: Exclude<SlotType, SlotType.Class>;
+			content: ReactNode;
+	  }
+	| {
+			type: SlotType.Class;
+			classSlots: ClassSlot[];
+	  }
+	| {
+			type: SlotType.Class;
+			classType: string;
+			content: ReactNode;
+	  }
+);
+
+export default ScheduleSlot;

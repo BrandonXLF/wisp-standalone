@@ -12,7 +12,12 @@
 	border-width: 0 0 1px 0;
 }
 
+.mini .column-slot {
+	height: max-content !important;
+}
+
 .class {
+	background: #eee;
 	transition:
 		left 15ms linear,
 		top 15ms linear,
@@ -23,8 +28,46 @@
 	left: 0;
 }
 
-.mini .column-slot {
-	height: max-content !important;
+.mini .class {
+	border-left-width: 1px;
+	border-right-width: 1px;
+	padding: 3px 0;
+}
+
+.class-LEC {
+	background: #e5f0fa;
+}
+
+.class-TUT {
+	background: #f4e2fd;
+}
+
+.class-TST {
+	background: #e4fbe4;
+}
+
+.class-LAB {
+	background: #fcf3e3;
+}
+
+.class-SEM {
+	background: #fbfbe4;
+}
+
+.class-MULTI {
+	background: #e4e4e4;
+}
+
+.class-GET_STARTED > * {
+	font-size: 125%;
+}
+
+.gap {
+	color: #333;
+}
+
+.mini .blank {
+	display: none;
 }
 
 .column-slot > * {
