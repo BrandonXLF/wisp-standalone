@@ -1,5 +1,5 @@
 .column-slot,
-.class:hover > .slot-content {
+.schedule:not(.mini) .class:hover > .slot-content {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -7,10 +7,20 @@
 }
 
 .column-slot {
-	position: relative;
 	border-color: inherit;
 	border-style: inherit;
 	border-width: 0 0 1px 0;
+}
+
+.class {
+	transition:
+		left 15ms linear,
+		top 15ms linear,
+		border-color 15ms linear,
+		box-shadow 15ms linear;
+	position: relative;
+	top: 0;
+	left: 0;
 }
 
 .mini .column-slot {
@@ -22,11 +32,18 @@
 	padding: 3px;
 }
 
+.schedule:not(.mini) .class:hover {
+	top: -3px;
+	left: -3px;
+	box-shadow:
+		#888 3px 3px 0px 0px,
+		#666 0px 0px 0px 1px;
+	border-color: transparent;
+}
+
 .schedule:not(.mini) .class:hover > .slot-content {
 	position: absolute;
 	overflow: visible;
-	z-index: 1;
-	box-shadow: 0 0 2px 3px #8888;
 	min-width: 100%;
 	min-height: 100%;
 }

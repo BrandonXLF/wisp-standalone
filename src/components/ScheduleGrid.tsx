@@ -14,6 +14,13 @@ const COLUMN_LABELS: Record<(typeof COLUMN_DAYS)[number], string> = {
 	F: 'Fri'
 };
 
+function gridOnScroll(e: React.UIEvent) {
+	const el = e.target as HTMLDivElement;
+
+	el.classList.toggle('scrolled-x', !!el.scrollLeft);
+	el.classList.toggle('scrolled-y', !!el.scrollTop);
+}
+
 export default function ScheduleGrid({
 	loading,
 	classes,
@@ -208,7 +215,7 @@ export default function ScheduleGrid({
 		<div className="schedule-container">
 			{!hasClasses && <GetStarted />}
 			{loading && <div className="loading">Loading...</div>}
-			<div className={`schedule${mini ? ' mini' : ''}`}>
+			<div className={`schedule${mini ? ' mini' : ''}`} onScroll={gridOnScroll}>
 				<div className="columns">
 					<div className="header"></div>
 					{COLUMN_DAYS.map((day, i) => (

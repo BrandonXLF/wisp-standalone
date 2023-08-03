@@ -50,10 +50,13 @@
 	top: 0;
 	background: #fff;
 	text-align: center;
-	z-index: 3;
 	border-width: 0 0 1px 0;
 	padding-bottom: 4px;
 	font-size: 125%;
+}
+
+.scrolled-y .header {
+	z-index: 3;
 }
 
 .mini .header-empty-col {
@@ -76,8 +79,11 @@
 	position: sticky;
 	left: 0;
 	background: var(--theme-light);
-	z-index: 2;
 	border-left-width: 1px;
+}
+
+.scrolled-x .time-column {
+	z-index: 2;
 }
 
 .mini .time-column,

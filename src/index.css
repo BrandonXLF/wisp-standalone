@@ -36,7 +36,27 @@ button {
 	border: none;
 	background: var(--theme);
 	padding: 6px 10px;
-	box-shadow: #8883 1px 1px 6px 1px;
+	transition:
+		top 15ms linear,
+		left 15ms linear,
+		box-shadow 15ms linear;
+	box-shadow: #888 3px 3px 0px 0px;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+button:hover,
+button:focus {
+	box-shadow: #888 5px 5px 0px 0px;
+	top: -2px;
+	left: -2px;
+}
+
+button:active {
+	box-shadow: #888 0px 0px 0px 0px;
+	top: 3px;
+	left: 3px;
 }
 
 select {
