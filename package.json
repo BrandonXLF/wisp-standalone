@@ -4,7 +4,7 @@
 	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"dev": "node server",
 		"build": "tsc && vite build",
 		"lint": "prettier . --use-tabs --single-quote --write --arrow-parens avoid --trailing-comma none && eslint . --fix --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview"
@@ -23,6 +23,7 @@
 		"eslint-config-prettier": "^8.9.0",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-react-refresh": "^0.4.3",
+		"express": "^4.18.2",
 		"prettier": "^3.0.0",
 		"typescript": "^5.0.2",
 		"vite": "^4.4.5"
