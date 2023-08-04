@@ -17,7 +17,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background: #0002;
+	background: var(--overlay);
 }
 
 .schedule {
@@ -31,7 +31,7 @@
 	grid-template-rows: min-content auto;
 	min-width: 50em;
 	font-size: 11px;
-	background-color: rgba(255, 255, 255, 0.95);
+	background-color: var(--part-transparent);
 }
 
 .mini .columns {
@@ -41,14 +41,14 @@
 
 .header,
 .column {
-	border-color: #666;
+	border-color: var(--border-color);
 	border-style: solid;
 }
 
 .header {
 	position: sticky;
 	top: 0;
-	background: #fff;
+	background: var(--bg);
 	text-align: center;
 	border-width: 0 0 1px 0;
 	padding-bottom: 4px;

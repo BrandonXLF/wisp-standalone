@@ -1,10 +1,28 @@
 :root {
 	--theme: #f5bd00;
 	--theme-light: #ffe799;
+	--color: #000;
+	--lighter: #333;
+	--link: #664e00;
+	--bg: #fff;
+	--bg-darker: #ebebeb;
+	--bg-blue: #e5f0fa;
+	--bg-purple: #f4e2fd;
+	--bg-green: #e4fbe4;
+	--bg-orange: #fcf3e3;
+	--bg-yellow: #fbfbe4;
+	--border-color: #666;
+	--overlay: #0002;
+	--part-transparent: #fffffff2;
 }
 
 * {
 	box-sizing: border-box;
+}
+
+html {
+	color: var(--color);
+	background: var(--bg);
 }
 
 body {
@@ -17,6 +35,19 @@ html,
 body,
 #root {
 	height: 100%;
+}
+
+a,
+a:visited {
+	color: var(--link);
+}
+
+select,
+textarea,
+input,
+button {
+	background: var(--bg);
+	color: var(--color);
 }
 
 textarea,
@@ -40,7 +71,7 @@ button {
 		top 15ms linear,
 		left 15ms linear,
 		box-shadow 15ms linear;
-	box-shadow: #888 3px 3px 0px 0px;
+	box-shadow: var(--border-color) 3px 3px 0px 0px;
 	position: relative;
 	top: 0;
 	left: 0;
@@ -48,13 +79,13 @@ button {
 
 button:hover,
 button:focus {
-	box-shadow: #888 5px 5px 0px 0px;
+	box-shadow: var(--border-color) 5px 5px 0px 0px;
 	top: -2px;
 	left: -2px;
 }
 
 button:active {
-	box-shadow: #888 0px 0px 0px 0px;
+	box-shadow: var(--border-color) 0px 0px 0px 0px;
 	top: 3px;
 	left: 3px;
 }
@@ -63,6 +94,5 @@ select {
 	padding: 4px 0;
 	border: 0;
 	border-bottom: 2px solid var(--theme);
-	background: #fff;
 	border-radius: 0;
 }
