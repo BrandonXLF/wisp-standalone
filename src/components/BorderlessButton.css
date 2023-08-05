@@ -1,0 +1,8 @@
+.borderless-btn {
+	background: none;
+	padding: 0;
+	font-size: inherit;
+	box-shadow: none !important;
+	top: 0 !important;
+	left: 0 !important;
+}

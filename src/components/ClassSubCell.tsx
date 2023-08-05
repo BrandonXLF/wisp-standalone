@@ -5,6 +5,7 @@ import InstructorLink from './InstructorLink';
 import CloseIcon from '../icons/CloseIcon';
 import CollapseIcon from '../icons/CollapseIcon';
 import ExpandIcon from '../icons/ExpandIncon';
+import BorderlessButton from './BorderlessButton';
 
 export default function ClassSubCell({
 	classSlot,
@@ -38,14 +39,14 @@ export default function ClassSubCell({
 				{expandable && (
 					<>
 						{' '}
-						<button className="svg-btn" onClick={() => setExpanded(!expanded)}>
+						<BorderlessButton onClick={() => setExpanded(!expanded)}>
 							{expanded ? <CollapseIcon /> : <ExpandIcon />}
-						</button>
+						</BorderlessButton>
 					</>
 				)}{' '}
-				<button className="svg-btn" onClick={onRemoved}>
+				<BorderlessButton onClick={onRemoved}>
 					<CloseIcon />
-				</button>
+				</BorderlessButton>
 			</div>
 			{(!expandable || expanded) && (
 				<div className="expanded-content">
