@@ -7,7 +7,7 @@ export default function CollapseIcon() {
 			viewBox="0 0 24 24"
 			className="icon"
 		>
-			<path d="M6 16l6 -8l6 8"></path>
+			<path d="M6 16l6 -8l6 8" />
 		</svg>
 	);
 }

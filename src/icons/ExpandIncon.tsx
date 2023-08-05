@@ -7,7 +7,7 @@ export default function ExpandIcon() {
 			viewBox="0 0 24 24"
 			className="icon"
 		>
-			<path d="M6 8l6 8l6 -8"></path>
+			<path d="M6 8l6 8l6 -8" />
 		</svg>
 	);
 }
