@@ -49,7 +49,7 @@ export default function App() {
 
 	useEffect(() => {
 		const storedClasses = JSON.parse(
-			localStorage.getItem(`uw-scheduler-${session}`) ?? '[]'
+			localStorage.getItem(`wisp-semester-${session}`) ?? '[]'
 		) as StoredClass[];
 
 		importerRef.current.setSession(session);
@@ -75,7 +75,7 @@ export default function App() {
 			];
 		});
 
-		const key = `uw-scheduler-${sessionRef.current.code}`;
+		const key = `wisp-semester-${sessionRef.current.code}`;
 
 		if (!storedClasses.length) {
 			localStorage.removeItem(key);
