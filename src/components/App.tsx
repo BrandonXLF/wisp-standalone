@@ -19,6 +19,7 @@ export default function App() {
 
 	const [miniMode, setMiniMode] = useState(false);
 	const [showImporter, setShowImporter] = useState(false);
+	const [darkMode, setDarkMode] = useState(!!localStorage.getItem('wisp-dark'));
 
 	const addClass = useCallback((classInfo: Class) => {
 		setClasses(existingClasses => {
@@ -85,6 +86,13 @@ export default function App() {
 		localStorage.setItem(key, JSON.stringify(storedClasses));
 	}, [classes, loading]);
 
+	useEffect(() => {
+		document.documentElement.classList.toggle('dark', darkMode);
+
+		if (darkMode) localStorage.setItem('wisp-dark', '1');
+		else localStorage.removeItem('wisp-dark');
+	}, [darkMode]);
+
 	return (
 		<div id="container">
 			<main ref={mainRef}>
@@ -117,7 +125,10 @@ export default function App() {
 					isMini={miniMode}
 				/>
 			</main>
-			<Footer />
+			<Footer
+				darkMode={darkMode}
+				onDarkModeToggled={() => setDarkMode(!darkMode)}
+			/>
 		</div>
 	);
 }
