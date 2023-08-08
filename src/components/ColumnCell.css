@@ -1,61 +1,24 @@
-.column-slot,
-.schedule:not(.mini) .class:hover > .slot-content {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
-}
-
 .column-slot {
-	border-color: inherit;
-	border-style: inherit;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	border: 0 solid var(--border-color);
 	border-width: 0 0 1px 0;
+	overflow: hidden;
 }
 
 .mini .column-slot {
 	height: max-content !important;
 }
 
-.class {
-	background: var(--bg-darker);
-	transition:
-		left 15ms linear,
-		top 15ms linear,
-		border-color 15ms linear,
-		box-shadow 15ms linear;
-	position: relative;
-	top: 0;
-	left: 0;
-}
-
 .mini .class {
 	border-left-width: 1px;
 	border-right-width: 1px;
-	padding: 3px 0;
 }
 
-.class-LEC {
-	background: var(--bg-blue);
-}
-
-.class-TUT {
-	background: var(--bg-purple);
-}
-
-.class-TST {
-	background: var(--bg-green);
-}
-
-.class-LAB {
-	background: var(--bg-orange);
-}
-
-.class-SEM {
-	background: var(--bg-yellow);
-}
-
-.class-GET_STARTED > * {
-	font-size: 125%;
+.schedule:not(.mini) .class:hover {
+	overflow: visible;
 }
 
 .gap {
@@ -66,23 +29,64 @@
 	display: none;
 }
 
-.column-slot > * {
-	overflow: hidden;
+.cell-content {
 	padding: 3px;
+	width: 100%;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
 }
 
-.schedule:not(.mini) .class:hover {
+.mini .cell-content {
+	padding: 6px 3px;
+}
+
+.class .cell-content {
+	background: var(--bg-darker);
+}
+
+.schedule:not(.mini) .class .cell-content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition:
+		left 15ms linear,
+		top 15ms linear,
+		border-color 15ms linear,
+		box-shadow 15ms linear;
+}
+
+.class-GET_STARTED .cell-content {
+	font-size: 125%;
+}
+
+.class-LEC .cell-content {
+	background: var(--bg-blue);
+}
+
+.class-TUT .cell-content {
+	background: var(--bg-purple);
+}
+
+.class-TST .cell-content {
+	background: var(--bg-green);
+}
+
+.class-LAB .cell-content {
+	background: var(--bg-orange);
+}
+
+.class-SEM .cell-content {
+	background: var(--bg-yellow);
+}
+
+.schedule:not(.mini) .class:hover .cell-content {
 	top: -3px;
 	left: -3px;
 	box-shadow:
 		var(--border-color) 3px 3px 0px 0px,
 		var(--border-color) 0px 0px 0px 1px;
-	border-color: transparent;
-}
-
-.schedule:not(.mini) .class:hover > .slot-content {
-	position: absolute;
-	overflow: visible;
-	min-width: 100%;
-	min-height: 100%;
+	z-index: 1;
 }

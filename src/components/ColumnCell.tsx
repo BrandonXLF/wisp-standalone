@@ -37,9 +37,9 @@ export default function ColumnCell({
 
 	return (
 		<div style={{ height }} className={`column-slot ${className}`}>
-			{'classSlots' in slot ? (
-				<div className="slot-content">
-					{slot.classSlots.map(classSlot => (
+			<div className="cell-content">
+				{'classSlots' in slot
+					? slot.classSlots.map(classSlot => (
 						<ClassSubCell
 							key={classSlot.uniqueStr}
 							classSlot={classSlot}
@@ -49,11 +49,9 @@ export default function ColumnCell({
 							}
 							expandable={slot.classSlots.length > 1}
 						/>
-					))}
-				</div>
-			) : (
-				slot.content
-			)}
+					  ))
+					: slot.content}
+			</div>
 		</div>
 	);
 }
