@@ -6,7 +6,7 @@ import CloseIcon from '../icons/CloseIcon';
 import CollapseIcon from '../icons/CollapseIcon';
 import ExpandIcon from '../icons/ExpandIncon';
 import BorderlessButton from './BorderlessButton';
-import AlertIcon from '../icons/AlertIcon';
+import OverlapIcon from '../icons/OverlapIcon';
 
 export default function ClassSubCell({
 	classSlot,
@@ -39,7 +39,7 @@ export default function ClassSubCell({
 			<div className="slot-top">
 				{overlaps && (
 					<>
-						<AlertIcon />{' '}
+						<OverlapIcon />{' '}
 					</>
 				)}
 				<a

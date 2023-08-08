@@ -7,6 +7,7 @@ export default function LightIcon() {
 			viewBox="0 0 24 24"
 			className="icon"
 		>
+			<title>Light mode</title>
 			<path
 				d="M12 19a1 1 0 0 1 .993 .883l.007 .117v1a1 1 0 0 1 -1.993 .117l-.007 -.117v-1a1 1 0 0 1 1 -1z"
 				strokeWidth="0"
