@@ -43,6 +43,7 @@ export default function ColumnCell({
 						<ClassSubCell
 							key={classSlot.uniqueStr}
 							classSlot={classSlot}
+							siblings={slot.classSlots}
 							onRemoved={() => onClassRemoved?.(classSlot.classInfo)}
 							onCourseClicked={() =>
 								onCourseClicked?.(classSlot.classInfo.course)

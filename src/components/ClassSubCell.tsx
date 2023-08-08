@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import './ClassSubCell.css';
 import ClassSlot from '../data/ClassSlot';
 import InstructorLink from './InstructorLink';
@@ -6,23 +6,42 @@ import CloseIcon from '../icons/CloseIcon';
 import CollapseIcon from '../icons/CollapseIcon';
 import ExpandIcon from '../icons/ExpandIncon';
 import BorderlessButton from './BorderlessButton';
+import AlertIcon from '../icons/AlertIcon';
 
 export default function ClassSubCell({
 	classSlot,
 	onRemoved,
 	onCourseClicked,
-	expandable
+	expandable,
+	siblings = []
 }: {
 	classSlot: ClassSlot;
 	onRemoved: () => void;
 	onCourseClicked: () => void;
 	expandable?: boolean;
+	siblings?: ClassSlot[];
 }) {
 	const [expanded, setExpanded] = useState(false);
+
+	const overlaps = useMemo(
+		() =>
+			siblings.some(
+				sibling =>
+					classSlot !== sibling &&
+					classSlot.endDate >= sibling.startDate &&
+					classSlot.startDate <= sibling.endDate
+			),
+		[classSlot, siblings]
+	);
 
 	return (
 		<>
 			<div className="slot-top">
+				{overlaps && (
+					<>
+						<AlertIcon />{' '}
+					</>
+				)}
 				<a
 					href=""
 					className="course-code"
