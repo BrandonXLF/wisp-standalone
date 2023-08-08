@@ -18,9 +18,9 @@ export default function ClassListItem({
 		scheduledClass => scheduledClass.number === classInfo.number
 	);
 	const isFull = classInfo.enrolled >= classInfo.capacity;
-	const overlaps = scheduledClasses
-		.filter(scheduledClass => scheduledClass.number !== classInfo.number)
-		.filter(scheduledClass =>
+	const overlaps = scheduledClasses.filter(
+		scheduledClass =>
+			scheduledClass.number !== classInfo.number &&
 			scheduledClass.slots.some(slot =>
 				classInfo.slots.some(
 					proposedSlot =>
@@ -31,7 +31,7 @@ export default function ClassListItem({
 						proposedSlot.start <= slot.end
 				)
 			)
-		);
+	);
 
 	return (
 		<SearchResult
