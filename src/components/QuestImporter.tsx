@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 import Importer from '../data/Importer';
 import './QuestImporter.css';
 
-export default function ImportButton({ importer }: { importer: Importer }) {
+export default function QuestImporter({ importer }: { importer: Importer }) {
 	const [loading, setLoading] = useState(false);
 	const [successes, setSuccesses] = useState(-1);
 

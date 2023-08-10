@@ -4,7 +4,7 @@ import ClassSlot from '../data/ClassSlot';
 import InstructorLink from './InstructorLink';
 import CloseIcon from '../icons/CloseIcon';
 import CollapseIcon from '../icons/CollapseIcon';
-import ExpandIcon from '../icons/ExpandIncon';
+import ExpandIcon from '../icons/ExpandIcon';
 import BorderlessButton from './BorderlessButton';
 import OverlapIcon from '../icons/OverlapIcon';
 
