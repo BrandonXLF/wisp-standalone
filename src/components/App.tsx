@@ -18,7 +18,7 @@ import CloseIcon from '../icons/CloseIcon';
 import AddIcon from '../icons/AddIcon';
 import DeleteIcon from '../icons/DeleteIcon';
 import ArrayWithSelected from '../data/ArrayWithSelected';
-import useConfigBoolean from '../data/UseConfigBoolean';
+import useConfigBoolean from '../helpers/UseConfigBoolean';
 
 export default function App() {
 	const [session, setSession] = useState(Session.getActive());
