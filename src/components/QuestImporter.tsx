@@ -2,7 +2,13 @@ import { useCallback, useRef, useState } from 'react';
 import Importer from '../data/Importer';
 import './QuestImporter.css';
 
-export default function QuestImporter({ importer }: { importer: Importer }) {
+export default function QuestImporter({
+	importer,
+	onEmptyClassListRequired
+}: {
+	importer: Importer;
+	onEmptyClassListRequired: () => void;
+}) {
 	const [loading, setLoading] = useState(false);
 	const [successes, setSuccesses] = useState(-1);
 
@@ -12,6 +18,7 @@ export default function QuestImporter({ importer }: { importer: Importer }) {
 
 		setLoading(true);
 		setSuccesses(-1);
+		onEmptyClassListRequired();
 
 		const successCount = await importer.importFromString(
 			textareaRef.current?.value ?? ''
@@ -19,7 +26,7 @@ export default function QuestImporter({ importer }: { importer: Importer }) {
 
 		setLoading(false);
 		setSuccesses(successCount);
-	}, [importer]);
+	}, [importer, onEmptyClassListRequired]);
 
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 
