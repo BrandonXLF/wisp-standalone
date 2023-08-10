@@ -18,6 +18,7 @@ import CloseIcon from '../icons/CloseIcon';
 import AddIcon from '../icons/AddIcon';
 import DeleteIcon from '../icons/DeleteIcon';
 import ArrayWithSelected from '../data/ArrayWithSelected';
+import useConfigBoolean from '../data/UseConfigBoolean';
 
 export default function App() {
 	const [session, setSession] = useState(Session.getActive());
@@ -28,9 +29,9 @@ export default function App() {
 	const [classes, setClasses] = useState<Class[]>([]);
 	const [activeCourse, setActiveCourse] = useState<Course | null>(null);
 
-	const [miniMode, setMiniMode] = useState(false);
 	const [showImporter, setShowImporter] = useState(false);
-	const [darkMode, setDarkMode] = useState(!!localStorage.getItem('wisp-dark'));
+	const [miniMode, setMiniMode] = useConfigBoolean('wisp-mini');
+	const [darkMode, setDarkMode] = useConfigBoolean('wisp-dark');
 
 	const ensureEmptyClassList = useCallback(() => {
 		setClassLists(schedules => {
@@ -145,9 +146,6 @@ export default function App() {
 
 	useEffect(() => {
 		document.documentElement.classList.toggle('dark', darkMode);
-
-		if (darkMode) localStorage.setItem('wisp-dark', '1');
-		else localStorage.removeItem('wisp-dark');
 	}, [darkMode]);
 
 	return (
