@@ -10,6 +10,11 @@ import StoredClass from '../data/StoredClass';
 import TopArea from './TopArea';
 import Course from '../data/Course';
 import Footer from './Footer';
+import BorderlessButton from './BorderlessButton';
+import ImportIcon from '../icons/ImportIcon';
+import MaximizeIcon from '../icons/MaximizeIcon';
+import MinimizeIcon from '../icons/MinimizeIcon';
+import CloseIcon from '../icons/CloseIcon';
 
 export default function App() {
 	const [session, setSession] = useState(Session.getActive());
@@ -99,12 +104,12 @@ export default function App() {
 				<header ref={headerRef}>
 					<TopArea session={session} onSessionChanged={setSession} />
 					<div className="main-buttons">
-						<button onClick={() => setShowImporter(!showImporter)}>
-							{showImporter ? 'Close import' : 'Import'}
-						</button>
-						<button onClick={() => setMiniMode(!miniMode)}>
-							{miniMode ? 'Proportion' : 'Minify'}
-						</button>
+						<BorderlessButton onClick={() => setShowImporter(!showImporter)}>
+							{showImporter ? <CloseIcon /> : <ImportIcon />}
+						</BorderlessButton>
+						<BorderlessButton onClick={() => setMiniMode(!miniMode)}>
+							{miniMode ? <MaximizeIcon /> : <MinimizeIcon />}
+						</BorderlessButton>
 					</div>
 					{showImporter && <QuestImporter importer={importerRef.current} />}
 					<CourseSearch
