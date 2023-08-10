@@ -80,34 +80,6 @@ input {
 	border: 2px solid var(--theme);
 }
 
-button {
-	cursor: pointer;
-	border: none;
-	background: var(--theme);
-	padding: 6px 10px;
-	transition:
-		top 15ms linear,
-		left 15ms linear,
-		box-shadow 15ms linear;
-	box-shadow: var(--border-color) 3px 3px 0px 0px;
-	position: relative;
-	top: 0;
-	left: 0;
-}
-
-button:hover,
-button:focus {
-	box-shadow: var(--border-color) 5px 5px 0px 0px;
-	top: -2px;
-	left: -2px;
-}
-
-button:active {
-	box-shadow: var(--border-color) 0px 0px 0px 0px;
-	top: 3px;
-	left: 3px;
-}
-
 select {
 	padding: 4px 0;
 	border: 0;
