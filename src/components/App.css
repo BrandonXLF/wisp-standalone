@@ -24,10 +24,6 @@ main {
 	margin-left: 0.75em;
 }
 
-.selected-button {
-	color: var(--link);
-}
-
 @media (min-width: 600px) {
 	main {
 		flex-direction: row;

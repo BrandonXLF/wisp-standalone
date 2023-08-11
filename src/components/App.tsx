@@ -1,12 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 import ScheduleGrid from './ScheduleGrid';
 import CourseSearch from './CourseSearch';
 import Session from '../data/Session';
-import Class from '../data/Class';
-import Importer from '../data/Importer';
 import QuestImporter from './QuestImporter';
-import StoredClass from '../data/StoredClass';
 import TopArea from './TopArea';
 import Course from '../data/Course';
 import Footer from './Footer';
@@ -17,132 +14,40 @@ import MinimizeIcon from '../icons/MinimizeIcon';
 import CloseIcon from '../icons/CloseIcon';
 import AddIcon from '../icons/AddIcon';
 import DeleteIcon from '../icons/DeleteIcon';
-import ArrayWithSelected from '../data/ArrayWithSelected';
 import useConfigBoolean from '../helpers/UseConfigBoolean';
+import useClassList from '../helpers/UseClassList';
+import useStoredClassLists from '../helpers/UseStoredClassLists';
+import IndexSelector from './IndexSelector';
 
 export default function App() {
 	const [session, setSession] = useState(Session.getActive());
-	const [classLists, setClassLists] = useState(
-		new ArrayWithSelected<StoredClass[]>([[]], 0)
-	);
-	const [loading, setLoading] = useState(true);
-	const [classes, setClasses] = useState<Class[]>([]);
-	const [activeCourse, setActiveCourse] = useState<Course | null>(null);
+
+	const [
+		classLists,
+		ensureEmptyClassList,
+		addClassList,
+		setSelectedClassList,
+		updateSelectedClassList,
+		deleteSelectedClassList
+	] = useStoredClassLists(session);
+
+	const [
+		selectedClasses,
+		loadingClasses,
+		classImporterRef,
+		addClass,
+		removeClass
+	] = useClassList(classLists.selected, updateSelectedClassList, session);
 
 	const [showImporter, setShowImporter] = useState(false);
 	const [miniMode, setMiniMode] = useConfigBoolean('wisp-mini');
 	const [darkMode, setDarkMode] = useConfigBoolean('wisp-dark');
 
-	const ensureEmptyClassList = useCallback(() => {
-		setClassLists(schedules => {
-			if (!schedules.selected.length) return schedules;
+	const mainElement = useRef<HTMLElement>(null);
+	const header = useRef<HTMLElement>(null);
 
-			if (schedules.last.length)
-				return new ArrayWithSelected([...schedules, []]);
-
-			return new ArrayWithSelected(schedules);
-		});
-	}, []);
-
-	const deleteCurrentClassList = useCallback(() => {
-		setClassLists(schedules => {
-			schedules = schedules.clone();
-
-			schedules.splice(schedules.selectedIndex, 1);
-
-			if (schedules.selectedIndex === schedules.length)
-				schedules.selectedIndex--;
-
-			if (!schedules.length) {
-				schedules.push([]);
-				schedules.selectedIndex = 0;
-			}
-
-			return schedules;
-		});
-	}, []);
-
-	const addClass = useCallback((classInfo: Class) => {
-		setClasses(existingClasses => {
-			if (
-				existingClasses.some(
-					existingClass => existingClass.number == classInfo.number
-				) ||
-				classInfo.course.sessionCode !== sessionRef.current.code
-			)
-				return existingClasses;
-
-			return [...existingClasses, classInfo];
-		});
-	}, []);
-
-	const removeClass = useCallback((classInfo: Class) => {
-		setClasses(existingClasses =>
-			existingClasses.filter(
-				existingClass => classInfo.number !== existingClass.number
-			)
-		);
-	}, []);
-
-	const mainRef = useRef<HTMLElement>(null);
-	const headerRef = useRef<HTMLElement>(null);
-	const importerRef = useRef(new Importer(session, addClass));
-	const sessionRef = useRef(session);
-
-	useEffect(() => {
-		importerRef.current.setSession(session);
-		sessionRef.current = session;
-
-		setLoading(true);
-
-		const [storedClassArray = [], selectedIndex = 0]: [
-			StoredClass[][],
-			number
-		] = JSON.parse(localStorage.getItem(`wisp-semester-${session}`) ?? '[]');
-
-		if (!storedClassArray.length) storedClassArray.push([]);
-
-		setClassLists(new ArrayWithSelected(storedClassArray, selectedIndex));
-	}, [session]);
-
-	useEffect(() => {
-		if (loading) return;
-
-		localStorage.setItem(
-			`wisp-semester-${sessionRef.current.code}`,
-			JSON.stringify(classLists)
-		);
-	}, [loading, classLists]);
-
-	useEffect(() => {
-		setLoading(true);
-		setClasses([]);
-		setActiveCourse(null);
-
-		importerRef.current
-			.importFromArray(classLists.selected)
-			.then(() => setLoading(false));
-	}, [classLists.selected]);
-
-	useEffect(() => {
-		if (loading) return;
-
-		setClassLists(schedules => {
-			schedules = schedules.clone();
-
-			schedules.selected.splice(0, schedules.selected.length);
-
-			classes.forEach(classInfo => {
-				schedules.selected.push([
-					classInfo.course.subject,
-					classInfo.course.number,
-					classInfo.number
-				]);
-			});
-
-			return schedules;
-		});
-	}, [classes, loading]);
+	const [activeCourse, setActiveCourse] = useState<Course | null>(null);
+	useEffect(() => setActiveCourse(null), [session]);
 
 	useEffect(() => {
 		document.documentElement.classList.toggle('dark', darkMode);
@@ -150,34 +55,16 @@ export default function App() {
 
 	return (
 		<div id="container">
-			<main ref={mainRef}>
-				<header ref={headerRef}>
+			<main ref={mainElement}>
+				<header ref={header}>
 					<TopArea session={session} onSessionChanged={setSession} />
 					<div className="main-buttons">
-						{classLists.map((_, i) => {
-							return (
-								<BorderlessButton
-									key={i}
-									onClick={() =>
-										setClassLists(
-											classLists => new ArrayWithSelected(classLists, i)
-										)
-									}
-									className={
-										i === classLists.selectedIndex ? 'selected-button' : ''
-									}
-								>
-									{i + 1}
-								</BorderlessButton>
-							);
-						})}
-						<BorderlessButton
-							onClick={() =>
-								setClassLists(
-									classLists => new ArrayWithSelected([...classLists, []])
-								)
-							}
-						>
+						<IndexSelector
+							items={classLists}
+							selectedIndex={classLists.selectedIndex}
+							setSelectedIndex={setSelectedClassList}
+						/>
+						<BorderlessButton onClick={addClassList}>
 							<AddIcon />
 						</BorderlessButton>
 						<BorderlessButton onClick={() => setShowImporter(!showImporter)}>
@@ -187,29 +74,29 @@ export default function App() {
 						<BorderlessButton onClick={() => setMiniMode(!miniMode)}>
 							{miniMode ? <MaximizeIcon /> : <MinimizeIcon />}
 						</BorderlessButton>
-						<BorderlessButton onClick={deleteCurrentClassList}>
+						<BorderlessButton onClick={deleteSelectedClassList}>
 							<DeleteIcon />
 						</BorderlessButton>
 					</div>
 					{showImporter && (
 						<QuestImporter
-							importer={importerRef.current}
+							importer={classImporterRef.current}
 							onEmptyClassListRequired={ensureEmptyClassList}
 						/>
 					)}
 					<CourseSearch
 						sessionCode={session.code}
-						container={mainRef.current}
-						verticalRelativesContainer={headerRef.current}
-						scheduledClasses={classes}
+						container={mainElement.current}
+						verticalRelativesContainer={header.current}
+						scheduledClasses={selectedClasses}
 						onClassSelected={addClass}
 						activeCourse={activeCourse}
 						onCourseChanged={setActiveCourse}
 					/>
 				</header>
 				<ScheduleGrid
-					loading={loading}
-					classes={classes}
+					loading={loadingClasses}
+					classes={selectedClasses}
 					onClassRemoved={removeClass}
 					onCourseClicked={setActiveCourse}
 					isMini={miniMode}
