@@ -11,7 +11,7 @@ export default function useClassList(
 ) {
 	const [loading, setLoading] = useState(true);
 	const [classes, setClasses] = useState<Class[]>([]);
-	const sessionRef = useRef(session);
+	const sessionCode = useRef(session.code);
 
 	const addClass = useCallback((classInfo: Class) => {
 		setClasses(classes => {
@@ -19,7 +19,7 @@ export default function useClassList(
 				classes.some(
 					existingClass => existingClass.number == classInfo.number
 				) ||
-				classInfo.course.sessionCode !== sessionRef.current.code
+				classInfo.course.sessionCode !== sessionCode.current
 			)
 				return classes;
 
@@ -33,10 +33,10 @@ export default function useClassList(
 		);
 	}, []);
 
-	const importerRef = useRef(new Importer(sessionRef.current, addClass));
+	const importerRef = useRef(new Importer(session, addClass));
 
 	useEffect(() => {
-		sessionRef.current = session;
+		sessionCode.current = session.code;
 		importerRef.current.setSession(session);
 	}, [session]);
 
