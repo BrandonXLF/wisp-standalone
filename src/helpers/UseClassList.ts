@@ -11,15 +11,15 @@ export default function useClassList(
 ) {
 	const [classes, setClasses] = useState<Class[]>([]);
 	const [loading, setLoading] = useState(true);
-	const sessionCode = useRef(session.code);
+	const currentInstance = useRef(0);
 
-	const addClass = useCallback((classInfo: Class) => {
+	const addClass = useCallback((classInfo: Class, listInstance?: number) => {
 		setClasses(classes => {
 			if (
 				classes.some(
 					existingClass => existingClass.number == classInfo.number
 				) ||
-				classInfo.course.sessionCode !== sessionCode.current
+				(listInstance !== undefined && listInstance !== currentInstance.current)
 			)
 				return classes;
 
@@ -35,16 +35,19 @@ export default function useClassList(
 
 	const importer = useRef(new Importer(session, addClass));
 
-	useEffect(() => {
-		sessionCode.current = session.code;
-		importer.current.setSession(session);
-	}, [session]);
+	useEffect(() => importer.current.setSession(session), [session]);
 
 	useEffect(() => {
+		const listInstance = ++currentInstance.current;
+
 		setLoading(true);
 		setClasses([]);
 
-		importer.current.importFromArray(source).then(() => setLoading(false));
+		importer.current.importFromArray(source, listInstance).then(() => {
+			if (listInstance !== currentInstance.current) return;
+
+			setLoading(false);
+		});
 	}, [source, importer]);
 
 	useEffect(() => {

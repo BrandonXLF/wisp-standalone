@@ -8,7 +8,7 @@ export default class Importer {
 
 	constructor(
 		public session: Session,
-		public addClass: (classInfo: Class) => void
+		public addClass: (classInfo: Class, listInstance?: number) => void
 	) {}
 
 	setSession(session: Session) {
@@ -32,7 +32,10 @@ export default class Importer {
 		return this.importFromArray(classes);
 	}
 
-	async importFromArray(storedClasses: StoredClass[]): Promise<number> {
+	async importFromArray(
+		storedClasses: StoredClass[],
+		instance?: number
+	): Promise<number> {
 		let finished = 0;
 
 		await Promise.allSettled(
@@ -45,7 +48,7 @@ export default class Importer {
 
 				if (!classInfo) return;
 
-				this.addClass(classInfo);
+				this.addClass(classInfo, instance);
 
 				finished++;
 			})
