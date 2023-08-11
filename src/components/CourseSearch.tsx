@@ -27,19 +27,18 @@ export default function CourseSearch({
 	const [query, setQuery] = useState<string>('');
 	const [courses, setCourses] = useState<NamedCourse[]>([]);
 	const [resultsMaxHeight, setResultsMaxHeight] = useState<string>();
+	const input = useRef<HTMLInputElement>(null);
+	const resultElement = useRef<HTMLDivElement>(null);
 
 	const calculateResultsMaxHeight = useCallback(() => {
 		setResultsMaxHeight(
 			`${
 				container!.getBoundingClientRect().bottom -
-				inputRef.current!.getBoundingClientRect().bottom -
+				input.current!.getBoundingClientRect().bottom -
 				24 // Results element margin top and main padding bottom
 			}px`
 		);
 	}, [container]);
-
-	const inputRef = useRef<HTMLInputElement>(null);
-	const resultRef = useRef<HTMLDivElement>(null);
 
 	const shownCourses = !query
 		? []
@@ -75,10 +74,10 @@ export default function CourseSearch({
 	useEffect(() => {
 		const onWindowClick = (e: MouseEvent) => {
 			if (
-				!resultRef.current ||
+				!resultElement.current ||
 				!hasResults ||
-				e.composedPath().includes(resultRef.current) ||
-				getComputedStyle(resultRef.current).position !== 'absolute'
+				e.composedPath().includes(resultElement.current) ||
+				getComputedStyle(resultElement.current).position !== 'absolute'
 			)
 				return;
 
@@ -94,18 +93,18 @@ export default function CourseSearch({
 	return (
 		<div className="class-search">
 			<input
-				ref={inputRef}
+				ref={input}
 				className="search-input"
 				placeholder="Search for courses"
 				onInput={() => {
-					setQuery(inputRef.current?.value ?? '');
+					setQuery(input.current?.value ?? '');
 					onCourseChanged(null);
 				}}
 			/>
 			{hasResults && (
 				<div className="search-results-container">
 					<div
-						ref={resultRef}
+						ref={resultElement}
 						className="search-results"
 						style={{ maxHeight: resultsMaxHeight }}
 					>
