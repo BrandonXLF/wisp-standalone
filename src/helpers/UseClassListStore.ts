@@ -4,12 +4,12 @@ import ArrayWithSelected from '../data/ArrayWithSelected';
 import StoredClass from '../data/StoredClass';
 import Class from '../data/Class';
 
-export default function useStoredClassLists(session: Session) {
+export default function useClassListStore(session: Session) {
 	const storageKey = useRef(`wisp-semester-${session}`);
-	const [loading, setLoading] = useState(true);
 	const [lists, setLists] = useState(
 		new ArrayWithSelected<StoredClass[]>([[]], 0)
 	);
+	const [loading, setLoading] = useState(true);
 
 	const ensureEmpty = useCallback(() => {
 		setLists(lists => {
@@ -21,24 +21,11 @@ export default function useStoredClassLists(session: Session) {
 		});
 	}, []);
 
-	const deleteSelected = useCallback(() => {
-		setLists(lists => {
-			lists = lists.clone();
-
-			lists.splice(lists.selectedIndex, 1);
-
-			if (lists.selectedIndex === lists.length) lists.selectedIndex--;
-
-			if (!lists.length) {
-				lists.push([]);
-				lists.selectedIndex = 0;
-			}
-
-			return lists;
-		});
+	const add = useCallback(() => {
+		setLists(lists => new ArrayWithSelected([...lists, []]));
 	}, []);
 
-	const setSelected = useCallback((index: number) => {
+	const select = useCallback((index: number) => {
 		setLists(lists => new ArrayWithSelected(lists, index));
 	}, []);
 
@@ -60,8 +47,21 @@ export default function useStoredClassLists(session: Session) {
 		});
 	}, []);
 
-	const append = useCallback(() => {
-		setLists(lists => new ArrayWithSelected([...lists, []]));
+	const deleteSelected = useCallback(() => {
+		setLists(lists => {
+			lists = lists.clone();
+
+			lists.splice(lists.selectedIndex, 1);
+
+			if (lists.selectedIndex === lists.length) lists.selectedIndex--;
+
+			if (!lists.length) {
+				lists.push([]);
+				lists.selectedIndex = 0;
+			}
+
+			return lists;
+		});
 	}, []);
 
 	useEffect(() => {
@@ -89,8 +89,8 @@ export default function useStoredClassLists(session: Session) {
 	return [
 		lists,
 		ensureEmpty,
-		append,
-		setSelected,
+		add,
+		select,
 		updateSelected,
 		deleteSelected
 	] as const;

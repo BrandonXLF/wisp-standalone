@@ -9,8 +9,8 @@ export default function useClassList(
 	updateSource: (classes: Class[]) => void,
 	session: Session
 ) {
-	const [loading, setLoading] = useState(true);
 	const [classes, setClasses] = useState<Class[]>([]);
+	const [loading, setLoading] = useState(true);
 	const sessionCode = useRef(session.code);
 
 	const addClass = useCallback((classInfo: Class) => {
@@ -33,19 +33,19 @@ export default function useClassList(
 		);
 	}, []);
 
-	const importerRef = useRef(new Importer(session, addClass));
+	const importer = useRef(new Importer(session, addClass));
 
 	useEffect(() => {
 		sessionCode.current = session.code;
-		importerRef.current.setSession(session);
+		importer.current.setSession(session);
 	}, [session]);
 
 	useEffect(() => {
 		setLoading(true);
 		setClasses([]);
 
-		importerRef.current.importFromArray(source).then(() => setLoading(false));
-	}, [source, importerRef]);
+		importer.current.importFromArray(source).then(() => setLoading(false));
+	}, [source, importer]);
 
 	useEffect(() => {
 		if (loading) return;
@@ -53,5 +53,5 @@ export default function useClassList(
 		updateSource(classes);
 	}, [classes, loading, updateSource]);
 
-	return [classes, loading, importerRef, addClass, removeClass] as const;
+	return [classes, loading, importer, addClass, removeClass] as const;
 }

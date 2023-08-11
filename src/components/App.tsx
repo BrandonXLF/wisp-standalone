@@ -16,30 +16,30 @@ import AddIcon from '../icons/AddIcon';
 import DeleteIcon from '../icons/DeleteIcon';
 import useConfigBoolean from '../helpers/UseConfigBoolean';
 import useClassList from '../helpers/UseClassList';
-import useStoredClassLists from '../helpers/UseStoredClassLists';
+import useClassListStore from '../helpers/UseClassListStore';
 import IndexSelector from './IndexSelector';
 
 export default function App() {
-	const [session, setSession] = useState(Session.getActive());
+	const [session, setSession] = useState(Session.getCurrent());
 
 	const [
 		classLists,
 		ensureEmptyClassList,
 		addClassList,
-		setSelectedClassList,
+		selectClassList,
 		updateSelectedClassList,
-		deleteSelectedClassList
-	] = useStoredClassLists(session);
+		removeSelectedClassList
+	] = useClassListStore(session);
 
 	const [
 		selectedClasses,
-		loadingClasses,
-		classImporterRef,
+		areClassesLoading,
+		classImporter,
 		addClass,
 		removeClass
 	] = useClassList(classLists.selected, updateSelectedClassList, session);
 
-	const [showImporter, setShowImporter] = useState(false);
+	const [importerShown, setImporterShown] = useState(false);
 	const [miniMode, setMiniMode] = useConfigBoolean('wisp-mini');
 	const [darkMode, setDarkMode] = useConfigBoolean('wisp-dark');
 
@@ -62,25 +62,25 @@ export default function App() {
 						<IndexSelector
 							items={classLists}
 							selectedIndex={classLists.selectedIndex}
-							setSelectedIndex={setSelectedClassList}
+							setSelectedIndex={selectClassList}
 						/>
 						<BorderlessButton onClick={addClassList}>
 							<AddIcon />
 						</BorderlessButton>
-						<BorderlessButton onClick={() => setShowImporter(!showImporter)}>
-							{showImporter ? <CloseIcon /> : <ImportIcon />}
+						<BorderlessButton onClick={() => setImporterShown(!importerShown)}>
+							{importerShown ? <CloseIcon /> : <ImportIcon />}
 						</BorderlessButton>
 						<span>|</span>
 						<BorderlessButton onClick={() => setMiniMode(!miniMode)}>
 							{miniMode ? <MaximizeIcon /> : <MinimizeIcon />}
 						</BorderlessButton>
-						<BorderlessButton onClick={deleteSelectedClassList}>
+						<BorderlessButton onClick={removeSelectedClassList}>
 							<DeleteIcon />
 						</BorderlessButton>
 					</div>
-					{showImporter && (
+					{importerShown && (
 						<QuestImporter
-							importer={classImporterRef.current}
+							importer={classImporter.current}
 							onEmptyClassListRequired={ensureEmptyClassList}
 						/>
 					)}
@@ -95,7 +95,7 @@ export default function App() {
 					/>
 				</header>
 				<ScheduleGrid
-					loading={loadingClasses}
+					loading={areClassesLoading}
 					classes={selectedClasses}
 					onClassRemoved={removeClass}
 					onCourseClicked={setActiveCourse}

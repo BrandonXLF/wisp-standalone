@@ -14,7 +14,7 @@ export default class Session {
 		}
 	];
 
-	static getActive() {
+	static getCurrent() {
 		const now = new Date();
 		const currentMonth = now.getMonth() + 1;
 

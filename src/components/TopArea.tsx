@@ -12,7 +12,7 @@ export default function TopArea({
 	const dropdownOptions = useMemo(() => {
 		const dropdownOptions = new Map<string, Session>();
 
-		for (let i = 0, currentSession = Session.getActive().next; i < 5; i++) {
+		for (let i = 0, currentSession = Session.getCurrent().next; i < 5; i++) {
 			dropdownOptions.set(currentSession.code, currentSession);
 			currentSession = currentSession.prev;
 		}
