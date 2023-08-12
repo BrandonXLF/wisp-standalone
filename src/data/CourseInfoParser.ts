@@ -4,6 +4,9 @@ import Course from './Course';
 import UWParser from './UWParser';
 
 export default class CourseInfoParser extends UWParser {
+	static classCache: Record<string, Class[]> = {};
+	static nameCache: Record<string, string> = {};
+
 	private digitRegex = /^\d+$/;
 	private classes: Class[] = [];
 
@@ -82,20 +85,27 @@ export default class CourseInfoParser extends UWParser {
 	}
 
 	async getClasses() {
+		if (this.course.code in CourseInfoParser.classCache)
+			return CourseInfoParser.classCache[this.course.code];
+
 		this.classes = [];
 
 		if (!this.scheduleRows) await this.populateTableRows();
-
 		this.scheduleRows!.filter((_, i) => i).forEach(this.processRow, this);
 
+		CourseInfoParser.classCache[this.course.code] = this.classes;
 		return this.classes;
 	}
 
 	async getName() {
-		if (!this.outerTableRows) await this.populateTableRows();
+		if (this.course.code in CourseInfoParser.nameCache)
+			return CourseInfoParser.nameCache[this.course.code];
 
+		if (!this.outerTableRows) await this.populateTableRows();
 		if (!this.outerTableRows![1]) return '';
 
-		return this.getCellContents(this.outerTableRows![1], 3);
+		const name = this.getCellContents(this.outerTableRows![1], 3);
+		CourseInfoParser.nameCache[this.course.code] = name;
+		return name;
 	}
 }
