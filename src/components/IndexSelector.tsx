@@ -4,11 +4,11 @@ import './IndexSelector.css';
 export default function IndexSelector({
 	items,
 	selectedIndex,
-	setSelectedIndex
+	onIndexSelected
 }: {
 	items: Array<unknown>;
 	selectedIndex: number;
-	setSelectedIndex: (index: number) => void;
+	onIndexSelected: (index: number) => void;
 }) {
 	return (
 		<>
@@ -16,7 +16,7 @@ export default function IndexSelector({
 				return (
 					<BorderlessButton
 						key={i}
-						onClick={() => setSelectedIndex(i)}
+						onClick={() => onIndexSelected(i)}
 						className={i === selectedIndex ? 'selected-button' : ''}
 					>
 						{i + 1}

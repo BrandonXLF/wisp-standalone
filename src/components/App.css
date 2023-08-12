@@ -1,35 +1,5 @@
-#container,
-main {
+#container {
 	display: flex;
 	flex-direction: column;
-}
-
-#container {
 	height: 100%;
-}
-
-main {
-	flex: 1;
-	height: 0;
-	padding: 1em;
-	gap: 1em;
-}
-
-.main-buttons {
-	margin-bottom: 1em;
-	text-align: center;
-}
-
-.main-buttons > :not(:first-child) {
-	margin-left: 0.75em;
-}
-
-@media (min-width: 600px) {
-	main {
-		flex-direction: row;
-	}
-
-	.main-buttons {
-		text-align: unset;
-	}
 }

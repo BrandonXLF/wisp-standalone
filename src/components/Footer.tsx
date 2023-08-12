@@ -1,15 +1,17 @@
+import { useEffect } from 'react';
+import useConfigBoolean from '../helpers/UseConfigBoolean';
 import DarkIcon from '../icons/DarkIcon';
 import LightIcon from '../icons/LightIcon';
 import BorderlessButton from './BorderlessButton';
 import './Footer.css';
 
-export default function Footer({
-	darkMode,
-	onDarkModeToggled
-}: {
-	darkMode: boolean;
-	onDarkModeToggled: () => void;
-}) {
+export default function Footer() {
+	const [darkMode, setDarkMode] = useConfigBoolean('wisp-dark');
+
+	useEffect(() => {
+		document.documentElement.classList.toggle('dark', darkMode);
+	}, [darkMode]);
+
 	return (
 		<footer>
 			<div>
@@ -24,7 +26,7 @@ export default function Footer({
 				.
 			</div>
 			<div>
-				<BorderlessButton onClick={() => onDarkModeToggled()}>
+				<BorderlessButton onClick={() => setDarkMode(!darkMode)}>
 					{darkMode ? <LightIcon /> : <DarkIcon />}
 				</BorderlessButton>
 			</div>
