@@ -4,12 +4,11 @@ import Course from './Course';
 import UWParser from './UWParser';
 
 export default class CourseInfoParser extends UWParser {
-	static classCache: Record<string, Class[]> = {};
-	static nameCache: Record<string, string> = {};
+	private static classCache: Record<string, Class[]> = {};
+	private static nameCache: Record<string, string> = {};
+	private static digitRegex = /^\d+$/;
 
-	private digitRegex = /^\d+$/;
 	private classes: Class[] = [];
-
 	private currentClass?: Class;
 	private outerTableRows?: HTMLTableRowElement[];
 	private scheduleRows?: HTMLTableRowElement[];
@@ -67,7 +66,7 @@ export default class CourseInfoParser extends UWParser {
 
 	private processRow(row: HTMLTableRowElement) {
 		const firstCell = this.getCellContents(row, 0);
-		const firstIsNumber = this.digitRegex.test(firstCell);
+		const firstIsNumber = CourseInfoParser.digitRegex.test(firstCell);
 
 		if (firstIsNumber) {
 			this.classFromRow(row);
