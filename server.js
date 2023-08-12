@@ -22,7 +22,10 @@ app.use('/uw-classes', async (req, res) => {
 	try {
 		const fetchRes = await fetch(requestedURL);
 
-		res.set('Access-Control-Allow-Origin', '*').send(await fetchRes.text());
+		res
+			.set('Access-Control-Allow-Origin', '*')
+			.status(fetchRes.status)
+			.send(await fetchRes.text());
 	} catch (e) {
 		console.log('/uw-classes fetch failed.', e);
 	}
