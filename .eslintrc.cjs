@@ -5,6 +5,8 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:react-hooks/recommended',
+		'plugin:react/recommended',
+		'plugin:react/jsx-runtime',
 		'prettier'
 	],
 	ignorePatterns: ['dist', '.eslintrc.cjs'],
@@ -15,7 +17,19 @@ module.exports = {
 			'warn',
 			{ allowConstantExport: true }
 		],
+		'react/self-closing-comp': [
+			'error',
+			{
+				component: true,
+				html: true
+			}
+		],
 		indent: ['warn', 'tab'],
 		quotes: ['warn', 'single']
+	},
+	settings: {
+		react: {
+			version: 'detect'
+		}
 	}
 };

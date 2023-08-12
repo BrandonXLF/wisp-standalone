@@ -40,6 +40,7 @@ export default function QuestImporter({
 						<a
 							target="_blank"
 							href="https://quest.pecs.uwaterloo.ca/psc/SS/ACADEMIC/SA/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL?CONTEXTIDPARAMS=TEMPLATE_ID:PTPPNAVCOL&scname=ADMN_CLASS_SCHEDULE"
+							rel="noreferrer"
 						>
 							Class Schedule on Quest
 						</a>
@@ -55,7 +56,7 @@ export default function QuestImporter({
 					className="import-text"
 					ref={textareaRef}
 					onPaste={importText}
-				></textarea>
+				/>
 				{loading && <div>Importing...</div>}
 				{successes !== -1 && (
 					<div>

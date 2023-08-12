@@ -14,7 +14,11 @@ export default function Footer({
 		<footer>
 			<div>
 				Developed by{' '}
-				<a target="_blank" href="https://www.brandonfowler.me/">
+				<a
+					target="_blank"
+					href="https://www.brandonfowler.me/"
+					rel="noreferrer"
+				>
 					Brandon Fowler
 				</a>
 				.

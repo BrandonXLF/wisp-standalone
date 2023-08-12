@@ -45,7 +45,7 @@ export default function ScheduleGrid({
 				onScroll={gridOnScroll}
 			>
 				<div className="columns">
-					<div className="header"></div>
+					<div className="header" />
 					{Schedule.days.map((day, i) => (
 						<div
 							key={day}
