@@ -34,7 +34,7 @@ export default function App() {
 
 	const [
 		selectedClasses,
-		areClassesLoading,
+		classListStatus,
 		classImporter,
 		addClass,
 		removeClass
@@ -99,7 +99,7 @@ export default function App() {
 					/>
 				</header>
 				<ScheduleGrid
-					loading={areClassesLoading}
+					status={classListStatus}
 					classes={selectedClasses}
 					onClassRemoved={removeClass}
 					onCourseClicked={setActiveCourse}

@@ -15,7 +15,7 @@ export default class Importer {
 		this.session = session;
 	}
 
-	importFromString(str: string): Promise<number> {
+	importFromString(str: string) {
 		const classes: StoredClass[] = [];
 
 		let activeCourse: [string, string] | undefined;
@@ -32,13 +32,10 @@ export default class Importer {
 		return this.importFromArray(classes);
 	}
 
-	async importFromArray(
-		storedClasses: StoredClass[],
-		instance?: number
-	): Promise<number> {
-		let finished = 0;
+	async importFromArray(storedClasses: StoredClass[], instance?: number) {
+		let count = 0;
 
-		await Promise.allSettled(
+		const results = await Promise.allSettled(
 			storedClasses.map(async ([courseCode, courseNumber, classNumber]) => {
 				const course = new Course(this.session.code, courseCode, courseNumber);
 
@@ -50,10 +47,13 @@ export default class Importer {
 
 				this.addClass(classInfo, instance);
 
-				finished++;
+				count++;
 			})
 		);
 
-		return finished;
+		return {
+			count,
+			hadError: results.some(result => result.status === 'rejected')
+		};
 	}
 }

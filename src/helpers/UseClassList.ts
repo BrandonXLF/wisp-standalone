@@ -3,6 +3,7 @@ import Class from '../data/Class';
 import Session from '../data/Session';
 import Importer from '../data/Importer';
 import StoredClass from '../data/StoredClass';
+import LoadingStatus from '../data/LoadingStatus';
 
 export default function useClassList(
 	source: StoredClass[],
@@ -10,7 +11,7 @@ export default function useClassList(
 	session: Session
 ) {
 	const [classes, setClasses] = useState<Class[]>([]);
-	const [loading, setLoading] = useState(true);
+	const [status, setStatus] = useState(LoadingStatus.Loading);
 	const currentInstance = useRef(0);
 
 	const addClass = useCallback((classInfo: Class, listInstance?: number) => {
@@ -40,21 +41,21 @@ export default function useClassList(
 	useEffect(() => {
 		const listInstance = ++currentInstance.current;
 
-		setLoading(true);
+		setStatus(LoadingStatus.Loading);
 		setClasses([]);
 
-		importer.current.importFromArray(source, listInstance).then(() => {
+		importer.current.importFromArray(source, listInstance).then(res => {
 			if (listInstance !== currentInstance.current) return;
 
-			setLoading(false);
+			setStatus(res.hadError ? LoadingStatus.Error : LoadingStatus.Ready);
 		});
 	}, [source, importer]);
 
 	useEffect(() => {
-		if (loading) return;
+		if (status !== LoadingStatus.Ready) return;
 
 		updateSource(classes);
-	}, [classes, loading, updateSource]);
+	}, [classes, status, updateSource]);
 
-	return [classes, loading, importer, addClass, removeClass] as const;
+	return [classes, status, importer, addClass, removeClass] as const;
 }

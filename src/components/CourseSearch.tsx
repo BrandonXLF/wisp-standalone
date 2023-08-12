@@ -25,6 +25,7 @@ export default function CourseSearch({
 	onCourseChanged: (course: Course | null) => void;
 }) {
 	const [query, setQuery] = useState<string>('');
+	const [hadError, setHadError] = useState(false);
 	const [courses, setCourses] = useState<NamedCourse[]>([]);
 	const [resultsMaxHeight, setResultsMaxHeight] = useState<string>();
 	const input = useRef<HTMLInputElement>(null);
@@ -49,7 +50,14 @@ export default function CourseSearch({
 	const hasResults = Boolean(activeCourse ?? shownCourses.length > 0);
 
 	useEffect(
-		() => void new OfferingsParser(sessionCode).getCourses().then(setCourses),
+		() =>
+			void (async () => {
+				try {
+					setCourses(await new OfferingsParser(sessionCode).getCourses());
+				} catch {
+					setHadError(true);
+				}
+			})(),
 		[sessionCode, onCourseChanged]
 	);
 
@@ -101,6 +109,7 @@ export default function CourseSearch({
 					onCourseChanged(null);
 				}}
 			/>
+			{hadError && <div className="search-error">Error loading offerings.</div>}
 			{hasResults && (
 				<div className="search-results-container">
 					<div

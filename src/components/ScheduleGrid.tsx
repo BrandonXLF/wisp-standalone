@@ -5,6 +5,7 @@ import GetStarted from './GetStarted';
 import Course from '../data/Course';
 import { useMemo } from 'react';
 import Schedule from '../data/Schedule';
+import LoadingStatus from '../data/LoadingStatus';
 
 function gridOnScroll(e: React.UIEvent) {
 	const el = e.target as HTMLDivElement;
@@ -14,13 +15,13 @@ function gridOnScroll(e: React.UIEvent) {
 }
 
 export default function ScheduleGrid({
-	loading,
+	status,
 	classes,
 	onClassRemoved,
 	onCourseClicked,
 	isMini
 }: {
-	loading: boolean;
+	status: LoadingStatus;
 	classes: Class[];
 	onClassRemoved: (classInfo: Class) => void;
 	onCourseClicked: (course: Course) => void;
@@ -39,7 +40,12 @@ export default function ScheduleGrid({
 	return (
 		<div className="schedule-container">
 			{!hasClassSlots && <GetStarted />}
-			{loading && <div className="loading">Loading...</div>}
+			{status === LoadingStatus.Loading && (
+				<div className="loading">Loading...</div>
+			)}
+			{status === LoadingStatus.Error && (
+				<div className="loading">Error loading classes.</div>
+			)}
 			<div
 				className={`schedule${isMini ? ' mini' : ''}`}
 				onScroll={gridOnScroll}

@@ -8,6 +8,10 @@
 	width: 100%;
 }
 
+.search-error {
+	margin-top: 8px;
+}
+
 .search-results-container {
 	position: relative;
 	display: flex;

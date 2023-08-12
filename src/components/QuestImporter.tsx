@@ -20,9 +20,9 @@ export default function QuestImporter({
 		setSuccesses(-1);
 		onEmptyClassListRequired();
 
-		const successCount = await importer.importFromString(
-			textareaRef.current?.value ?? ''
-		);
+		const successCount = (
+			await importer.importFromString(textareaRef.current?.value ?? '')
+		).count;
 
 		setLoading(false);
 		setSuccesses(successCount);

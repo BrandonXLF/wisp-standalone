@@ -15,6 +15,8 @@ export default abstract class UWParser {
 	) {
 		const res = await fetch(`uw-classes/?path=${encodeURIComponent(path)}`);
 
+		if (!res.ok) throw new TypeError(res.statusText);
+
 		if (!Array.isArray(tableNumbers)) tableNumbers = [tableNumbers];
 
 		const doc = this.domParser.parseFromString(await res.text(), 'text/html');
