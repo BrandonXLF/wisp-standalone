@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Course from '../data/Course';
 import './CourseSearch.css';
 import Class from '../data/Class';
@@ -6,6 +6,7 @@ import ClassList from './ClassList';
 import SearchResult from './SearchResult';
 import OfferingsParser from '../data/OfferingsParser';
 import NamedCourse from '../data/NamedCourse';
+import useRemainingHeight from '../helpers/UseRemainingHeight';
 
 export default function CourseSearch({
 	sessionCode,
@@ -27,19 +28,15 @@ export default function CourseSearch({
 	const [query, setQuery] = useState<string>('');
 	const [hadError, setHadError] = useState(false);
 	const [courses, setCourses] = useState<NamedCourse[]>([]);
-	const [resultsMaxHeight, setResultsMaxHeight] = useState<string>();
 	const input = useRef<HTMLInputElement>(null);
 	const resultElement = useRef<HTMLDivElement>(null);
 
-	const calculateResultsMaxHeight = useCallback(() => {
-		setResultsMaxHeight(
-			`${
-				container!.getBoundingClientRect().bottom -
-				input.current!.getBoundingClientRect().bottom -
-				24 // Results element margin top and main padding bottom
-			}px`
-		);
-	}, [container]);
+	const resultsMaxHeight = useRemainingHeight({
+		container,
+		prevSibling: input.current,
+		verticalRelativesContainer,
+		offset: 24 // Results element margin top and main padding bottom
+	});
 
 	const shownCourses = !query
 		? []
@@ -60,24 +57,6 @@ export default function CourseSearch({
 			})(),
 		[sessionCode, onCourseChanged]
 	);
-
-	useEffect(() => {
-		if (!container || !verticalRelativesContainer) return;
-
-		const resizeObserver = new ResizeObserver(calculateResultsMaxHeight);
-		const mutationObserver = new MutationObserver(calculateResultsMaxHeight);
-
-		resizeObserver.observe(container);
-		mutationObserver.observe(verticalRelativesContainer, {
-			childList: true,
-			subtree: true
-		});
-
-		return () => {
-			resizeObserver.disconnect();
-			mutationObserver.disconnect();
-		};
-	}, [container, verticalRelativesContainer, calculateResultsMaxHeight]);
 
 	useEffect(() => {
 		const onWindowClick = (e: MouseEvent) => {
