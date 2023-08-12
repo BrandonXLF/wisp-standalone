@@ -21,8 +21,11 @@ export default function useClassListStore(session: Session) {
 		});
 	}, []);
 
-	const add = useCallback(() => {
-		setLists(lists => new ArrayWithSelected([...lists, []]));
+	const add = useCallback((clone?: boolean) => {
+		setLists(
+			lists =>
+				new ArrayWithSelected([...lists, clone ? [...lists.selected] : []])
+		);
 	}, []);
 
 	const select = useCallback((index: number) => {

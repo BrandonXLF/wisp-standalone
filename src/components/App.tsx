@@ -18,6 +18,7 @@ import useConfigBoolean from '../helpers/UseConfigBoolean';
 import useClassList from '../helpers/UseClassList';
 import useClassListStore from '../helpers/UseClassListStore';
 import IndexSelector from './IndexSelector';
+import CloneIcon from '../icons/CloneIcon';
 
 export default function App() {
 	const [session, setSession] = useState(Session.getCurrent());
@@ -64,8 +65,11 @@ export default function App() {
 							selectedIndex={classLists.selectedIndex}
 							setSelectedIndex={selectClassList}
 						/>
-						<BorderlessButton onClick={addClassList}>
+						<BorderlessButton onClick={() => addClassList()}>
 							<AddIcon />
+						</BorderlessButton>
+						<BorderlessButton onClick={() => addClassList(true)}>
+							<CloneIcon />
 						</BorderlessButton>
 						<BorderlessButton onClick={() => setImporterShown(!importerShown)}>
 							{importerShown ? <CloseIcon /> : <ImportIcon />}

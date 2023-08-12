@@ -6,8 +6,9 @@ export default function AddIcon() {
 			className="icon"
 		>
 			<title>Add</title>
-			<path d="M12 5l0 14"></path>
-			<path d="M5 12l14 0"></path>
+			<path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+			<path d="M9 12l6 0" />
+			<path d="M12 9l0 6" />
 		</svg>
 	);
 }
