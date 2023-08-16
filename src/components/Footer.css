@@ -6,6 +6,12 @@ footer {
 	justify-content: space-between;
 }
 
+footer > div {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+}
+
 footer a,
 footer a:visited {
 	color: var(--color);

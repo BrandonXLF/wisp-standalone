@@ -4,6 +4,7 @@ import DarkIcon from '../icons/DarkIcon';
 import LightIcon from '../icons/LightIcon';
 import BorderlessButton from './BorderlessButton';
 import './Footer.css';
+import GitHubIcon from '../icons/GitHubIcon';
 
 export default function Footer() {
 	const [darkMode, setDarkMode] = useConfigBoolean('wisp-dark');
@@ -15,15 +16,27 @@ export default function Footer() {
 	return (
 		<footer>
 			<div>
-				Developed by{' '}
-				<a
-					target="_blank"
-					href="https://www.brandonfowler.me/"
-					rel="noreferrer"
-				>
-					Brandon Fowler
-				</a>
-				.
+				<div>
+					Created by{' '}
+					<a
+						target="_blank"
+						href="https://www.brandonfowler.me/"
+						rel="noreferrer"
+					>
+						Brandon Fowler
+					</a>
+				</div>
+				<div>
+					{' '}
+					<a
+						target="_blank"
+						href="https://github.com/BrandonXLF/wisp"
+						rel="noreferrer"
+					>
+						<GitHubIcon />
+						GitHub
+					</a>
+				</div>
 			</div>
 			<div>
 				<BorderlessButton onClick={() => setDarkMode(!darkMode)}>
