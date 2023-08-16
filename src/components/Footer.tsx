@@ -5,6 +5,7 @@ import LightIcon from '../icons/LightIcon';
 import BorderlessButton from './BorderlessButton';
 import './Footer.css';
 import GitHubIcon from '../icons/GitHubIcon';
+import IconLink from './IconLink';
 
 export default function Footer() {
 	const [darkMode, setDarkMode] = useConfigBoolean('wisp-dark');
@@ -28,14 +29,14 @@ export default function Footer() {
 				</div>
 				<div>
 					{' '}
-					<a
+					<IconLink
 						target="_blank"
 						href="https://github.com/BrandonXLF/wisp"
 						rel="noreferrer"
+						icon={<GitHubIcon />}
 					>
-						<GitHubIcon />
 						GitHub
-					</a>
+					</IconLink>
 				</div>
 			</div>
 			<div>

@@ -1,7 +1,7 @@
 import Class from '../data/Class';
 import './ClassListItem.css';
-import InstructorLink from './InstructorLink';
 import SearchResult from './SearchResult';
+import UWFlowLink from './UWFlowLink';
 
 const listFormatter = new Intl.ListFormat('en');
 
@@ -58,8 +58,10 @@ export default function ClassListItem({
 				</div>
 				<div>
 					<strong>{classInfo.section}</strong> <span>{classInfo.number}</span> (
-					<span>{classInfo.enrolledString}</span>
-					) <InstructorLink classInfo={classInfo} />
+					<span>{classInfo.enrolledString}</span>){' '}
+					<UWFlowLink path={classInfo.instructorLink}>
+						{classInfo.instructorLast}
+					</UWFlowLink>
 				</div>
 				{classInfo.slots.map(dateTime => (
 					<div key={dateTime.uniqueStr}>

@@ -1,23 +1,23 @@
 import UWFlowIcon from '../icons/UWFlowIcon';
-import './UWFlowLink.css';
+import IconLink from './IconLink';
 
 export default function UWFlowLink({
-	text,
-	path
+	path,
+	children
 }: {
-	text?: string;
 	path?: string;
+	children?: React.ReactNode;
 }) {
-	if (!text) return;
+	if (!children) return;
 
 	return (
-		<a
+		<IconLink
 			target="uw-flow"
 			href={`https://uwflow.com${path}`}
 			onClick={e => e.stopPropagation()}
+			icon={<UWFlowIcon />}
 		>
-			<UWFlowIcon />
-			{text}
-		</a>
+			{children}
+		</IconLink>
 	);
 }

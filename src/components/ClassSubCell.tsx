@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import './ClassSubCell.css';
 import ClassSlot from '../data/ClassSlot';
-import InstructorLink from './InstructorLink';
 import CloseIcon from '../icons/CloseIcon';
 import CollapseIcon from '../icons/CollapseIcon';
 import ExpandIcon from '../icons/ExpandIcon';
 import BorderlessButton from './BorderlessButton';
 import OverlapIcon from '../icons/OverlapIcon';
+import UWFlowLink from './UWFlowLink';
 
 export default function ClassSubCell({
 	classSlot,
@@ -71,7 +71,9 @@ export default function ClassSubCell({
 				<div className="expanded-content">
 					<div>
 						<span>{classSlot.room}</span>{' '}
-						<InstructorLink classInfo={classSlot.classInfo} />{' '}
+						<UWFlowLink path={classSlot.classInfo.instructorLink}>
+							{classSlot.classInfo.instructorLast}
+						</UWFlowLink>{' '}
 						<span>{classSlot.classInfo.enrolledString}</span>
 					</div>
 					<div>

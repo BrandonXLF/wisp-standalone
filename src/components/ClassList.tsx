@@ -44,9 +44,10 @@ export default function ClassList({
 			</div>
 			<div>
 				<UWFlowLink
-					text="View on UW Flow"
 					path={`/course/${course.code.toLowerCase().replace(/ /g, '')}`}
-				/>
+				>
+					View on UW Flow
+				</UWFlowLink>
 			</div>
 			{!courseDetails && 'Loading...'}
 			{courseDetails?.classes.length === 0 && 'No classes available.'}
