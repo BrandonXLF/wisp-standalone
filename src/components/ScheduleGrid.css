@@ -22,9 +22,14 @@
 }
 
 .schedule {
-	overflow: auto;
 	overscroll-behavior: none;
 	background: center / cover url(/logo.svg);
+}
+
+@media not print {
+	.schedule {
+		overflow: auto;
+	}
 }
 
 .columns {

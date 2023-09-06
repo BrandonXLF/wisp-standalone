@@ -16,3 +16,9 @@ footer a,
 footer a:visited {
 	color: var(--color);
 }
+
+@media print {
+	footer {
+		display: none;
+	}
+}

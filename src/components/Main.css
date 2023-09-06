@@ -12,3 +12,9 @@ main {
 		flex-direction: row;
 	}
 }
+
+@media print {
+	header {
+		display: none;
+	}
+}

@@ -6,6 +6,7 @@ import BorderlessButton from './BorderlessButton';
 import './Footer.css';
 import GitHubIcon from '../icons/GitHubIcon';
 import IconLink from './IconLink';
+import PrintIcon from '../icons/PrintIcon';
 
 export default function Footer() {
 	const [darkMode, setDarkMode] = useConfigBoolean('wisp-dark');
@@ -40,6 +41,9 @@ export default function Footer() {
 				</div>
 			</div>
 			<div>
+				<BorderlessButton onClick={window.print}>
+					<PrintIcon />
+				</BorderlessButton>
 				<BorderlessButton onClick={() => setDarkMode(!darkMode)}>
 					{darkMode ? <LightIcon /> : <DarkIcon />}
 				</BorderlessButton>
