@@ -1,13 +1,16 @@
 import { useCallback, useRef, useState } from 'react';
 import Importer from '../data/Importer';
 import './QuestImporter.css';
+import Popup from './Popup';
 
 export default function QuestImporter({
 	importer,
-	onEmptyClassListRequired
+	onEmptyClassListRequired,
+	onClosed
 }: {
 	importer: Importer;
 	onEmptyClassListRequired: () => void;
+	onClosed: () => void;
 }) {
 	const [loading, setLoading] = useState(false);
 	const [successes, setSuccesses] = useState(-1);
@@ -31,39 +34,37 @@ export default function QuestImporter({
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 
 	return (
-		<div className="import-area-container">
-			<div className="import-area">
-				<div className="import-instructions">
-					<div>1</div>
-					<div>
+		<Popup onClosed={onClosed} contentClass="import-area">
+			<div className="import-instructions">
+				<div>1)</div>
+				<div>
 						Open your{' '}
-						<a
-							target="_blank"
-							href="https://quest.pecs.uwaterloo.ca/psc/SS/ACADEMIC/SA/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL?CONTEXTIDPARAMS=TEMPLATE_ID:PTPPNAVCOL&scname=ADMN_CLASS_SCHEDULE"
-							rel="noreferrer"
-						>
+					<a
+						target="_blank"
+						href="https://quest.pecs.uwaterloo.ca/psc/SS/ACADEMIC/SA/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL?CONTEXTIDPARAMS=TEMPLATE_ID:PTPPNAVCOL&scname=ADMN_CLASS_SCHEDULE"
+						rel="noreferrer"
+					>
 							Class Schedule on Quest
-						</a>
-					</div>
-					<div>2</div>
-					<div>Copy all the contents of the page</div>
-					<div>3</div>
-					<div>Paste below</div>
+					</a>
 				</div>
-				<textarea
-					readOnly={loading}
-					placeholder="Paste schedule here"
-					className="import-text"
-					ref={textareaRef}
-					onPaste={importText}
-				/>
-				{loading && <div>Importing...</div>}
-				{successes !== -1 && (
-					<div>
-						Imported {successes} class{successes == 1 ? '' : 'es'}.
-					</div>
-				)}
+				<div>2)</div>
+				<div>Copy all the contents of the page</div>
+				<div>3)</div>
+				<div>Paste below</div>
 			</div>
-		</div>
+			<textarea
+				readOnly={loading}
+				placeholder="Paste schedule here"
+				className="import-text"
+				ref={textareaRef}
+				onPaste={importText}
+			/>
+			{loading && <div>Importing...</div>}
+			{successes !== -1 && (
+				<div>
+						Imported {successes} class{successes == 1 ? '' : 'es'}.
+				</div>
+			)}
+		</Popup>
 	);
 }

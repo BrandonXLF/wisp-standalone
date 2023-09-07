@@ -58,6 +58,7 @@ export default function Main() {
 					<QuestImporter
 						importer={classImporter.current}
 						onEmptyClassListRequired={ensureEmptyClassList}
+						onClosed={() => setImporterShown(false)}
 					/>
 				)}
 				<CourseSearch

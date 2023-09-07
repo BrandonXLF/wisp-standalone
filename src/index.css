@@ -15,6 +15,7 @@
 	--border-color: #666;
 	--overlay: #0002;
 	--part-transparent: #fffffff2;
+	--transparent: #ffffffa0;
 	color: var(--color);
 	background: var(--bg);
 }
@@ -37,6 +38,7 @@
 		--border-color: #606060;
 		--overlay: #18181822;
 		--part-transparent: #181818fa;
+		--transparent: #181818c0;
 		color-scheme: dark;
 	}
 }
