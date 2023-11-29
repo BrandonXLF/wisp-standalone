@@ -32,7 +32,7 @@ export default function Footer() {
 					{' '}
 					<IconLink
 						target="_blank"
-						href="https://github.com/BrandonXLF/wisp"
+						href="https://github.com/BrandonXLF/wisp-standalone"
 						rel="noreferrer"
 						icon={<GitHubIcon />}
 					>
