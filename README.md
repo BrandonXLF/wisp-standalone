@@ -1,6 +1,6 @@
 # DEPRECATED #
 
-Please see https://github.com/BrandonXLF/wisp instead which offers direct integration with Quest.
+Please see https://github.com/BrandonXLF/quest-plus instead which offers direct integration with Quest.
 
 # Waterloo Integrated Schedule Planner
 
